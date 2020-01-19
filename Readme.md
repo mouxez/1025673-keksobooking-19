@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
 * Студент: [Максим Боровик](https://up.htmlacademy.ru/javascript/19/user/1025673).
-* Наставник: `Неизвестно`.
+* Наставник: [Яна Казанина](https://htmlacademy.ru/profile/id1275245).
 
 ---
 
