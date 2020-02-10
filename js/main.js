@@ -7,9 +7,10 @@ var typeOptions = ['palace', 'flat', 'house', 'bungalo'];
 var timeOptions = ['12:00', '13:00', '14:00'];
 var featureOptions = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 var photoOptions = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
+var descriptionOptions = ['Светлая и комфортная квартира', 'Близко к метро', 'Чудесный вид на сад', 'Новый ремонт'];
 
 // Вспомогательные функции
-var randomFromSegment = function (min, max) {
+var getRandomFromSegment = function (min, max) {
   var rand = min - 0.5 + Math.random() * (max - min + 1);
 
   return Math.round(rand);
@@ -20,6 +21,15 @@ var chooseRandomElement = function (array) {
   return array[Math.floor(Math.random() * array.length)];
 };
 
+var getRandomArray = function (array) {
+  var number = getRandomFromSegment(1, array.length);
+  var arrItems = [];
+  for (var i = 0; i < number; i++) {
+    arrItems.push(array[i]);
+  }
+  return arrItems;
+};
+
 // 1. создаёт свойство аuthor
 var createAuthor = function () {
   var avatar = 'img/avatars/user' + '0' + Math.floor(Math.random() * 8) + '.png'; // доработка неповтора
@@ -28,24 +38,24 @@ var createAuthor = function () {
 };
 // создаёт свойство оffer
 var createOffer = function () {
-  var title = 'Просторная двушка в центре';
+  var title = 'Сдаётся квартира';
   var address = '600, 350';
-  var price = 40 + ' ' + '000 руб.';
+  var price = getRandomFromSegment(30000, 100000) + 'руб.';
   var type = chooseRandomElement(typeOptions);
-  var rooms = randomFromSegment(1, 10);
-  var guests = randomFromSegment(1, 10);
+  var rooms = getRandomFromSegment(1, 10);
+  var guests = getRandomFromSegment(1, 10);
   var checkin = chooseRandomElement(timeOptions);
   var checkout = chooseRandomElement(timeOptions);
-  var features = chooseRandomElement(featureOptions); // требует доработки
-  var description = 'Светлая и комфортная квартира.';
-  var photos = chooseRandomElement(photoOptions); // требует доработки
+  var features = getRandomArray(featureOptions);
+  var description = chooseRandomElement(descriptionOptions);
+  var photos = getRandomArray(photoOptions);
 
   return {title: title, address: address, price: price, type: type, rooms: rooms, guests: guests, checkin: checkin, checkout: checkout, features: features, description: description, photos: photos};
 };
 // создаёт свойство location
 var createLocation = function () {
-  var x = randomFromSegment(1, 1200);
-  var y = randomFromSegment(130, 630);
+  var x = getRandomFromSegment(1, 1200);
+  var y = getRandomFromSegment(130, 630);
 
   return {x: x, y: y};
 };
