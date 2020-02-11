@@ -2,7 +2,7 @@
 
 var PIN_WIDTH = 50;
 var PIN_HEIGHT = 70;
-var ADV_AMOUNT = 8;
+var ADS_AMOUNT = 8;
 var typeOptions = ['palace', 'flat', 'house', 'bungalo'];
 var timeOptions = ['12:00', '13:00', '14:00'];
 var featureOptions = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
@@ -19,11 +19,11 @@ var chooseRandomElement = function (array) {
 
 var getRandomArray = function (array) {
   var number = getRandomFromSegment(1, array.length);
-  var arrItems = [];
+  var items = [];
   for (var i = 0; i < number; i++) {
-    arrItems.push(array[i]);
+    items.push(array[i]);
   }
-  return arrItems;
+  return items;
 };
 
 // создаёт один рандомный объект
@@ -53,7 +53,7 @@ var advObject = function () {
 
 // создаёт цикл генерации 8 рандомных объектов
 var randomAd = [];
-for (var i = 0; i < ADV_AMOUNT; i++) {
+for (var i = 0; i < ADS_AMOUNT; i++) {
   randomAd[i] = advObject();
 }
 
