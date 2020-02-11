@@ -27,34 +27,33 @@ var getRandomArray = function (array) {
 };
 
 // создаёт один рандомный объект
-var advObject = function () {
+var createObject = function () {
   return {
-    author:
-  {avatar: 'img/avatars/user' + '0' + (i + 1) + '.png'},
-
-    offer:
-  {title: 'Сдаётся квартира',
-    address: '600, 350',
-    price: getRandomFromSegment(30000, 100000) + 'руб.',
-    type: chooseRandomElement(typeOptions),
-    rooms: getRandomFromSegment(1, 10),
-    guests: getRandomFromSegment(1, 10),
-    checkin: chooseRandomElement(timeOptions),
-    checkout: chooseRandomElement(timeOptions),
-    features: getRandomArray(featureOptions),
-    description: chooseRandomElement(descriptionOptions),
-    photos: getRandomArray(photoOptions)},
-
-    location:
-  {x: getRandomFromSegment(1, 1200),
-    y: getRandomFromSegment(130, 630)}
+    author: {avatar: 'img/avatars/user' + '0' + (i + 1) + '.png'},
+    offer: {
+      title: 'Сдаётся квартира',
+      address: '600, 350',
+      price: getRandomFromSegment(30000, 100000) + 'руб.',
+      type: chooseRandomElement(typeOptions),
+      rooms: getRandomFromSegment(1, 10),
+      guests: getRandomFromSegment(1, 10),
+      checkin: chooseRandomElement(timeOptions),
+      checkout: chooseRandomElement(timeOptions),
+      features: getRandomArray(featureOptions),
+      description: chooseRandomElement(descriptionOptions),
+      photos: getRandomArray(photoOptions)
+    },
+    location: {
+      x: getRandomFromSegment(1, 1200),
+      y: getRandomFromSegment(130, 630)
+    }
   };
 };
 
 // создаёт цикл генерации 8 рандомных объектов
-var randomAd = [];
+var randomAds = [];
 for (var i = 0; i < ADS_AMOUNT; i++) {
-  randomAd[i] = advObject();
+  randomAds[i] = createObject();
 }
 
 // 2. убирает класс .map--faded у блока с картой
@@ -85,4 +84,4 @@ var createPins = function (array) {
 };
 
 // выводит объявления
-createPins(randomAd);
+createPins(randomAds);
