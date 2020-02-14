@@ -7,7 +7,7 @@ var typeOptions = ['palace', 'flat', 'house', 'bungalo'];
 var timeOptions = ['12:00', '13:00', '14:00'];
 var featureOptions = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 var photoOptions = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
-var descriptionOptions = ['Светлая и комфортная квартира', 'Близко к метро', 'Чудесный вид на сад', 'Новый ремонт'];
+var descriptionOptions = ['Описание 1', 'Описание 2', 'Описание 3', 'Описание 4', 'Описание 5', 'Описание 6', 'Описание 7', 'Описание 8'];
 
 var getRandomFromSegment = function (min, max) {
   return Math.round(min - 0.5 + Math.random() * (max - min + 1));
@@ -74,7 +74,7 @@ var renderDraftPin = function (pin) {
   return userPin;
 };
 
-// создаёт 8 объявлений
+// создаёт объявления
 var createPins = function (array) {
   var fragment = document.createDocumentFragment();
   for (var j = 0; j < array.length; j++) {
@@ -85,3 +85,62 @@ var createPins = function (array) {
 
 // выводит объявления
 createPins(randomAds);
+
+// находит и копирует шаблон карточки
+var templateCard = document.querySelector('#card').content;
+var mockCard = templateCard.querySelector('.map__card').cloneNode(true);
+
+// создаёт элемент списка
+var createFeature = function (feature) {
+  var featureElement = document.createElement('LI');
+  featureElement.className = 'popup__feature popup__feature--' + feature;
+
+  return featureElement;
+};
+
+// вставляет элементы списка на страницу
+var createFeatures = function (features) {
+  var fragment = document.createDocumentFragment();
+  features.forEach(function (feature) {
+    fragment.appendChild(createFeature(feature));
+  });
+
+  return fragment;
+};
+
+// создаёт данные карточки объявления
+var renderCard = function () {
+  mockCard.querySelector('.popup__title').textContent = randomAds[0].offer.title;
+  mockCard.querySelector('.popup__text--address').textContent = randomAds[0].offer.address;
+  mockCard.querySelector('.popup__text--price').textContent = randomAds[0].offer.price + '₽/ночь';
+  mockCard.querySelector('.popup__text--capacity ').textContent = randomAds[0].offer.rooms + ' комнаты для ' + randomAds[0].offer.guests + ' гостей';
+  mockCard.querySelector('.popup__text--time').textContent = 'Заезд после ' + randomAds[0].offer.checkin + ', выезд до' + randomAds[0].offer.checkout;
+  mockCard.querySelector('.popup__features').innerHTML = '';
+  mockCard.querySelector('.popup__features').appendChild(createFeatures(randomAds[0].offer.features));
+  mockCard.querySelector('.popup__description').textContent = randomAds[0].offer.description;
+  mockCard.querySelector('.popup__photos').src = randomAds[0].offer.photos;
+  mockCard.querySelector('.popup__avatar').src = randomAds[0].author.avatar;
+
+  if (randomAds[0].offer.type === 'flat') {
+    mockCard.querySelector('.popup__type').textContent = 'Квартира';
+  } else if (randomAds[0].offer.type === 'bungalo') {
+    mockCard.querySelector('.popup__type').textContent = 'Бунгало';
+  } else if (randomAds[0].offer.type === 'house') {
+    mockCard.querySelector('.popup__type').textContent = 'Дом';
+  } else if (randomAds[0].offer.type === 'palace') {
+    mockCard.querySelector('.popup__type').textContent = 'Дворец';
+  }
+
+  return mockCard;
+};
+
+// создаёт карточку
+var map = document.querySelector('.map');
+var createCard = function () {
+  var fragment = document.createDocumentFragment();
+  fragment.appendChild(renderCard());
+  map.appendChild(fragment);
+};
+
+// выводит первую карточку
+createCard();
