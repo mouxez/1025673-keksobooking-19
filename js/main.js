@@ -94,7 +94,7 @@ createPins(randomAds);
 
 // находит и копирует шаблон карточки
 var templateCard = document.querySelector('#card').content;
-var mockCard = templateCard.querySelector('.map__card').cloneNode(true);
+var mapCard = templateCard.querySelector('.map__card').cloneNode(true);
 
 // создаёт элемент списка .popup__feature
 var createFeature = function (feature) {
@@ -135,32 +135,32 @@ var removeElement = function (parent) {
 // создаёт данные карточки объявления
 var renderCard = function () {
   // удаляет существующие элементы photos и features в разметке
-  removeElement(mockCard.querySelector('.popup__photos'));
-  removeElement(mockCard.querySelector('.popup__features'));
+  removeElement(mapCard.querySelector('.popup__photos'));
+  removeElement(mapCard.querySelector('.popup__features'));
 
   imgElement(randomAds[0].offer.photos);
-  mockCard.querySelector('.popup__photos').appendChild(fragment);
-  mockCard.querySelector('.popup__title').textContent = randomAds[0].offer.title;
-  mockCard.querySelector('.popup__text--address').textContent = randomAds[0].offer.address;
-  mockCard.querySelector('.popup__text--price').textContent = randomAds[0].offer.price + '₽/ночь';
-  mockCard.querySelector('.popup__text--capacity ').textContent = randomAds[0].offer.rooms + ' комнаты для ' + randomAds[0].offer.guests + ' гостей';
-  mockCard.querySelector('.popup__text--time').textContent = 'Заезд после ' + randomAds[0].offer.checkin + ', выезд до' + randomAds[0].offer.checkout;
-  mockCard.querySelector('.popup__features').innerHTML = '';
-  mockCard.querySelector('.popup__features').appendChild(createFeatures(randomAds[0].offer.features));
-  mockCard.querySelector('.popup__description').textContent = randomAds[0].offer.description;
-  mockCard.querySelector('.popup__avatar').src = randomAds[0].author.avatar;
+  mapCard.querySelector('.popup__photos').appendChild(fragment);
+  mapCard.querySelector('.popup__title').textContent = randomAds[0].offer.title;
+  mapCard.querySelector('.popup__text--address').textContent = randomAds[0].offer.address;
+  mapCard.querySelector('.popup__text--price').textContent = randomAds[0].offer.price + '₽/ночь';
+  mapCard.querySelector('.popup__text--capacity ').textContent = randomAds[0].offer.rooms + ' комнаты для ' + randomAds[0].offer.guests + ' гостей';
+  mapCard.querySelector('.popup__text--time').textContent = 'Заезд после ' + randomAds[0].offer.checkin + ', выезд до' + randomAds[0].offer.checkout;
+  mapCard.querySelector('.popup__features').innerHTML = '';
+  mapCard.querySelector('.popup__features').appendChild(createFeatures(randomAds[0].offer.features));
+  mapCard.querySelector('.popup__description').textContent = randomAds[0].offer.description;
+  mapCard.querySelector('.popup__avatar').src = randomAds[0].author.avatar;
 
   if (randomAds[0].offer.type === 'flat') {
-    mockCard.querySelector('.popup__type').textContent = 'Квартира';
+    mapCard.querySelector('.popup__type').textContent = 'Квартира';
   } else if (randomAds[0].offer.type === 'bungalo') {
-    mockCard.querySelector('.popup__type').textContent = 'Бунгало';
+    mapCard.querySelector('.popup__type').textContent = 'Бунгало';
   } else if (randomAds[0].offer.type === 'house') {
-    mockCard.querySelector('.popup__type').textContent = 'Дом';
+    mapCard.querySelector('.popup__type').textContent = 'Дом';
   } else if (randomAds[0].offer.type === 'palace') {
-    mockCard.querySelector('.popup__type').textContent = 'Дворец';
+    mapCard.querySelector('.popup__type').textContent = 'Дворец';
   }
 
-  return mockCard;
+  return mapCard;
 };
 
 // создаёт карточку
