@@ -2,6 +2,7 @@
 
 var PIN_WIDTH = 50;
 var PIN_HEIGHT = 70;
+var PIN_ENDING = 10;
 var ADS_AMOUNT = 8;
 var typeOptions = ['palace', 'flat', 'house', 'bungalo'];
 var timeOptions = ['12:00', '13:00', '14:00'];
@@ -49,7 +50,7 @@ var createObject = function () {
     },
     location: {
       x: getRandomFromSegment(1, 1200),
-      y: getRandomFromSegment(160, 630)
+      y: getRandomFromSegment(130, 630)
     }
   };
 };
@@ -59,9 +60,6 @@ var randomAds = [];
 for (var i = 0; i < ADS_AMOUNT; i++) {
   randomAds[i] = createObject();
 }
-
-// 2. убирает класс .map--faded у блока с картой
-document.querySelector('.map').classList.remove('map--faded');
 
 // 3. Данные метки
 var pins = document.querySelector('.map__pins');
@@ -88,9 +86,6 @@ var createPins = function (array) {
   }
   pins.appendChild(fragment);
 };
-
-// выводит объявления
-createPins(randomAds);
 
 // находит и копирует шаблон карточки
 var templateCard = document.querySelector('#card').content;
@@ -171,4 +166,99 @@ var createCard = function () {
 };
 
 // выводит первую карточку
-createCard();
+// createCard(); отключено на время выполнения задания
+
+// деактивирует страницу
+var fieldsetElements = document.getElementsByTagName('fieldset');
+var selectElements = document.getElementsByTagName('select');
+
+var getDisabled = function () {
+  for (var j = 0; j < fieldsetElements.length; j++) {
+    fieldsetElements[j].setAttribute('disabled', 'disabled');
+  }
+  for (var k = 0; k < selectElements.length; k++) {
+    selectElements[k].setAttribute('disabled', 'disabled');
+  }
+};
+
+getDisabled();
+
+// активирует страницу
+var mainButton = document.querySelector('.map__pin--main');
+var ENTER_KEY = 'Enter';
+
+mainButton.addEventListener('mousedown', function () {
+  if (event.which === 1) {
+    for (var j = 0; j < fieldsetElements.length; j++) {
+      fieldsetElements[j].removeAttribute('disabled', 'disabled');
+    }
+    for (var k = 0; k < selectElements.length; k++) {
+      selectElements[k].removeAttribute('disabled', 'disabled');
+    }
+
+    // выводит объявления
+    createPins(randomAds);
+
+    // убирает класс .map--faded у блока с картой
+    document.querySelector('.map').classList.remove('map--faded');
+  }
+});
+
+// активация по нажатию Enter
+mainButton.addEventListener('keydown', function (evt) {
+  if (evt.key === ENTER_KEY) {
+    for (var j = 0; j < fieldsetElements.length; j++) {
+      fieldsetElements[j].removeAttribute('disabled', 'disabled');
+    }
+    for (var k = 0; k < selectElements.length; k++) {
+      selectElements[k].removeAttribute('disabled', 'disabled');
+    }
+
+    // выводит объявления
+    createPins(randomAds);
+
+    // убирает класс .map--faded у блока с картой
+    document.querySelector('.map').classList.remove('map--faded');
+  }
+});
+
+// вычисляет координаты относительно окна
+var coord = mainButton.getBoundingClientRect();
+var addressArea = document.getElementById('address');
+var currentCoordDisabled = [Math.round(coord.left) + (PIN_WIDTH / 2) + pageXOffset, Math.round(coord.top) + (PIN_HEIGHT / 2) + pageYOffset];
+var currentCoord = [Math.round(coord.left) + (PIN_WIDTH / 2) + pageXOffset, Math.round(coord.top) + PIN_HEIGHT + PIN_ENDING + pageYOffset];
+
+var getAddress = function () {
+  addressArea.value = currentCoordDisabled;
+  mainButton.addEventListener('mousedown', function () {
+    if (event.which === 1) {
+      addressArea.value = currentCoord;
+    }
+  });
+  mainButton.addEventListener('mousemove', function () {
+    addressArea.value = currentCoord;
+  });
+};
+
+getAddress();
+
+// валидирует тип жилья и его стоимость
+var housingPrice = document.getElementById('price');
+
+var checkHouseType = function () {
+  if (document.querySelector('option[value=bungalo]') === 'Бунгало') {
+    housingPrice.setAttribute('min="0"');
+    housingPrice.setAttribute('placeholder="0"');
+  } else if (document.querySelector('option[value=flat]') === 'Квартира') {
+    housingPrice.setAttribute('min="1000"');
+    housingPrice.setAttribute('placeholder="1000"');
+  } else if (document.querySelector('option[value=house]') === 'Дом') {
+    housingPrice.setAttribute('min="5000"');
+    housingPrice.setAttribute('placeholder="5000"');
+  } else if (document.querySelector('option[value=palace]') === 'Дворец') {
+    housingPrice.setAttribute('min="10000"');
+    housingPrice.setAttribute('placeholder="10000"');
+  }
+};
+
+checkHouseType();
