@@ -242,23 +242,49 @@ var getAddress = function () {
 
 getAddress();
 
-// валидирует тип жилья и его стоимость
+// проверяет соответствие 'тип жилья и его стоимость' и она не работает
 var housingPrice = document.getElementById('price');
 
 var checkHouseType = function () {
-  if (document.querySelector('option[value=bungalo]') === 'Бунгало') {
-    housingPrice.setAttribute('min="0"');
-    housingPrice.setAttribute('placeholder="0"');
-  } else if (document.querySelector('option[value=flat]') === 'Квартира') {
-    housingPrice.setAttribute('min="1000"');
-    housingPrice.setAttribute('placeholder="1000"');
-  } else if (document.querySelector('option[value=house]') === 'Дом') {
-    housingPrice.setAttribute('min="5000"');
-    housingPrice.setAttribute('placeholder="5000"');
-  } else if (document.querySelector('option[value=palace]') === 'Дворец') {
-    housingPrice.setAttribute('min="10000"');
-    housingPrice.setAttribute('placeholder="10000"');
+  if (document.querySelector('.type__bungalo') === 'Бунгало') {
+    housingPrice.setAttribute('min="0"', 'min="0"');
+    housingPrice.setAttribute('placeholder="0"', 'placeholder="0"');
+  } else if (document.querySelector('.type__flat') === 'Квартира') {
+    housingPrice.setAttribute('min="1000"', 'min="1000"');
+    housingPrice.setAttribute('placeholder="1000"', 'placeholder="1000"');
+  } else if (document.querySelector('.type__house') === 'Дом') {
+    housingPrice.setAttribute('min="5000"', 'min="5000"');
+    housingPrice.setAttribute('placeholder="5000"', 'placeholder="5000"');
+  } else if (document.querySelector('.type__palace') === 'Дворец') {
+    housingPrice.setAttribute('min="10000"', 'min="10000"');
+    housingPrice.setAttribute('placeholder="10000"', 'placeholder="10000"');
   }
 };
 
 checkHouseType();
+
+// проверяет соответствие 'количество комнат и гостей' и эта тоже
+var adForm = document.querySelector('.ad-form');
+
+var checkGuest = function () {
+  if (adForm.querySelector('.room-number__1').selected) {
+    adForm.querySelector('.capacity__1').setAttribute('selected', 'selected');
+    adForm.querySelector('.capacity__2').setAttribute('disabled', 'disabled');
+    adForm.querySelector('.capacity__3').setAttribute('disabled', 'disabled');
+    adForm.querySelector('.capacity__0').setAttribute('disabled', 'disabled');
+  } else if (adForm.querySelector('.room-number__2').selected) {
+    adForm.querySelector('.capacity__2').setAttribute('selected', 'selected');
+    adForm.querySelector('.capacity__3').setAttribute('disabled', 'disabled');
+    adForm.querySelector('.capacity__0').setAttribute('disabled', 'disabled');
+  } else if (adForm.querySelector('.room-number__3').selected) {
+    adForm.querySelector('.capacity__2').setAttribute('selected', 'selected');
+    adForm.querySelector('.capacity__0').setAttribute('disabled', 'disabled');
+  } else if (adForm.querySelector('.room-number__100').selected) {
+    adForm.querySelector('.capacity__0').setAttribute('selected', 'selected');
+    adForm.querySelector('.capacity__1').setAttribute('disabled', 'disabled');
+    adForm.querySelector('.capacity__2').setAttribute('disabled', 'disabled');
+    adForm.querySelector('.capacity__3').setAttribute('disabled', 'disabled');
+  }
+};
+
+checkGuest();
