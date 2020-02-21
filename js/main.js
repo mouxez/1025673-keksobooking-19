@@ -2,8 +2,9 @@
 
 var PIN_WIDTH = 50;
 var PIN_HEIGHT = 70;
-var PIN_ENDING = 10;
 var ADS_AMOUNT = 8;
+var LEFT_MOUSE_BUTTON = 0;
+var ENTER_KEY = 'Enter';
 var typeOptions = ['palace', 'flat', 'house', 'bungalo'];
 var timeOptions = ['12:00', '13:00', '14:00'];
 var featureOptions = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
@@ -178,11 +179,11 @@ var disablePage = function (array) {
   }
 };
 
-disablePage(fieldsetElements, selectElements);
+disablePage(fieldsetElements);
+disablePage(selectElements);
 
 // активирует страницу
 var mainButton = document.querySelector('.map__pin--main');
-var ENTER_KEY = 'Enter';
 
 var activatePage = function (array) {
   for (var j = 0; j < array.length; j++) {
@@ -197,33 +198,36 @@ var activatePage = function (array) {
 };
 
 mainButton.addEventListener('mousedown', function (evt) {
-  if (evt.button === 0) {
-    activatePage(fieldsetElements, selectElements);
+  if (evt.button === LEFT_MOUSE_BUTTON) {
+    activatePage(fieldsetElements);
+    activatePage(selectElements);
   }
 });
 
 // активация по нажатию Enter
 mainButton.addEventListener('keydown', function (evt) {
   if (evt.key === ENTER_KEY) {
-    activatePage(fieldsetElements, selectElements);
+    activatePage(fieldsetElements);
+    activatePage(selectElements);
   }
 });
 
 // вычисляет координаты относительно окна
-var pinCoordinate = mainButton.getBoundingClientRect();
+var pinX = mainButton.offsetLeft;
+var pinY = mainButton.offsetTop;
 var addressArea = document.getElementById('address');
-var currentCoordinatesDisabled = [Math.round(pinCoordinate.left) + (PIN_WIDTH / 2) + pageXOffset, Math.round(pinCoordinate.top) + (PIN_HEIGHT / 2) + pageYOffset];
-var currentCoordinates = [Math.round(pinCoordinate.left) + (PIN_WIDTH / 2) + pageXOffset, Math.round(pinCoordinate.top) + PIN_HEIGHT + PIN_ENDING + pageYOffset];
+
+// в состоянии disabled метка является кругом и расстояние до центра вычисляю прибавляя половину ширины метки (радиус)
+var currentCoordinatesDisabled = [Math.round(pinX) + (PIN_WIDTH / 2), Math.round(pinY) + (PIN_WIDTH / 2)];
+// в активном состоянии для вычисления координаты Y острого конца метки прибавляю всю её высоту
+var currentCoordinates = [Math.round(pinX) + (PIN_WIDTH / 2), Math.round(pinY) + PIN_HEIGHT];
 
 var getAddress = function () {
-  addressArea.value = currentCoordinatesDisabled;
+  addressArea.value = currentCoordinatesDisabled[0] + ',' + currentCoordinatesDisabled[1];
   mainButton.addEventListener('mousedown', function (evt) {
-    if (evt.button === 0) {
+    if (evt.button === LEFT_MOUSE_BUTTON) {
       addressArea.value = currentCoordinates[0] + ',' + currentCoordinates[1];
     }
-  });
-  mainButton.addEventListener('mousemove', function () {
-    addressArea.value = currentCoordinates[0] + ',' + currentCoordinates[1];
   });
 };
 
@@ -247,4 +251,4 @@ var checkGuest = function () {
   }
 };
 
-checkGuest();
+roomNumber.addEventListener('change', checkGuest);
