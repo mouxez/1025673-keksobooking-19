@@ -166,34 +166,17 @@ var map = document.querySelector('.map');
 var createCard = function () {
   fragment.appendChild(renderCard());
   map.appendChild(fragment);
+
+  // закрывает объявление
+  var popupClose = document.querySelector('.popup__close');
+  popupClose.addEventListener('click', function () {
+    mapCard.remove();
+  });
 };
-
-// закрывает объявление
-var popupClose = document.querySelector('.popup__close');
-
-popupClose.addEventListener('click', function () {
-  mapCard.remove();
-});
-
 
 document.addEventListener('keydown', function (evt) {
   if (evt.keyCode === ESC_CODE) {
     mapCard.remove();
-  }
-});
-
-// открывает объявление
-var mapPin = document.querySelector('.map__pin');
-
-mapPin.addEventListener('click', function () {
-  mapCard.remove();
-  createCard();
-});
-
-mapPin.addEventListener('keydown', function (evt) {
-  if (evt.keyCode === ENTER_KEY) {
-    mapCard.remove();
-    createCard();
   }
 });
 
@@ -213,7 +196,6 @@ disablePage(selectElements);
 // активирует страницу
 var mainButton = document.querySelector('.map__pin--main');
 
-
 var activatePage = function (array) {
   for (var j = 0; j < array.length; j++) {
     array[j].disabled = false;
@@ -227,6 +209,27 @@ var activatePage = function (array) {
 
   // активирует форму объявления
   document.querySelector('.ad-form').classList.remove('ad-form--disabled');
+
+  // получаем коллекцию меток на карте
+  var mapPinNodeList = document.querySelectorAll('.map__pin:not(.map__pin--main)');
+
+  // преобразует NodeList в Array
+  var mapPinArray = Array.prototype.slice.call(mapPinNodeList);
+
+  // добавляет обработчик на каждую метку
+  for (var k = 0; k < mapPinArray.length; k++) {
+    mapPinArray[k].addEventListener('click', function () {
+      mapCard.remove();
+      createCard();
+    });
+
+    mapPinArray[k].addEventListener('keydown', function (evt) {
+      if (evt.keyCode === ENTER_KEY) {
+        mapCard.remove();
+        createCard();
+      }
+    });
+  }
 };
 
 mainButton.addEventListener('mousedown', function (evt) {
