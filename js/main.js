@@ -204,6 +204,18 @@ var activatePage = function (array) {
   // выводит объявления
   createPins(randomAds);
 
+  // создаёт массив меток
+  var pinsList = [];
+  for (var k = 0; k < ADS_AMOUNT; k++) {
+    pinsList[k] = createPins(randomAds[k]);
+  }
+
+  var pushAdData = function () {
+    for (var l = 0; l < ADS_AMOUNT; l++) {
+      createCard(pinsList[l]);
+    }
+  };
+
   // убирает класс .map--faded у блока с картой
   document.querySelector('.map').classList.remove('map--faded');
 
@@ -213,23 +225,24 @@ var activatePage = function (array) {
   // получаем коллекцию меток на карте
   var mapPinNodeList = document.querySelectorAll('.map__pin:not(.map__pin--main)');
 
-  // преобразует NodeList в Array
-  var mapPinArray = Array.prototype.slice.call(mapPinNodeList);
-
   // добавляет обработчик на каждую метку
-  for (var k = 0; k < mapPinArray.length; k++) {
-    mapPinArray[k].addEventListener('click', function () {
+  mapPinNodeList.forEach(function (item, index) {
+    item.addEventListener('click', function () {
       mapCard.remove();
-      createCard();
+      createCard(index);
+      pushAdData();
     });
+  });
 
-    mapPinArray[k].addEventListener('keydown', function (evt) {
-      if (evt.keyCode === ENTER_KEY) {
+  mapPinNodeList .forEach(function (item, index, evt) {
+    if (evt.keyCode === ENTER_KEY) {
+      item.addEventListener('keydown', function () {
         mapCard.remove();
-        createCard();
-      }
-    });
-  }
+        createCard(index);
+        pushAdData();
+      });
+    }
+  });
 };
 
 mainButton.addEventListener('mousedown', function (evt) {
