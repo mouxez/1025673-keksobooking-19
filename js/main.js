@@ -185,14 +185,14 @@ var selectElements = document.getElementsByTagName('select');
 // активирует страницу
 var mainButton = document.querySelector('.map__pin--main');
 
-var activateselectElements = function (array, isDisabled) {
+var activateElements = function (array, isDisabled) {
   for (var j = 0; j < array.length; j++) {
     array[j].disabled = isDisabled;
   }
 };
 
-activateselectElements(selectElements, true);
-activateselectElements(fieldsetElements, true);
+activateElements(selectElements, true);
+activateElements(fieldsetElements, true);
 
 var activatePage = function (array) {
   for (var j = 0; j < array.length; j++) {
@@ -235,8 +235,8 @@ var activatePage = function (array) {
 mainButton.addEventListener('mousedown', function (evt) {
   if (evt.button === LEFT_MOUSE_BUTTON) {
     activatePage(fieldsetElements);
-    activateselectElements(selectElements, false);
-    activateselectElements(selectElements, false);
+    activateElements(fieldsetElements, false);
+    activateElements(selectElements, false);
   }
 });
 
@@ -244,8 +244,8 @@ mainButton.addEventListener('mousedown', function (evt) {
 mainButton.addEventListener('keydown', function (evt) {
   if (evt.keyCode === ENTER_KEY) {
     activatePage(fieldsetElements);
-    activateselectElements(selectElements, false);
-    activateselectElements(selectElements, false);
+    activateElements(fieldsetElements, false);
+    activateElements(selectElements, false);
   }
 });
 
