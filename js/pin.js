@@ -40,6 +40,10 @@
         addressArea.value = currentCoordinates[0] + ',' + currentCoordinates[1];
       }
     });
+    // меняет адрес при передвижении метки
+    window.mainButton.addEventListener('mousemove', function () {
+      addressArea.value = currentCoordinates[0] + ',' + currentCoordinates[1];
+    });
   };
 
   getAddress();
