@@ -34,8 +34,8 @@
 
   // создаёт цикл генерации 8 рандомных объектов
   var randomAds = [];
-  window.randomAds = randomAds;
   for (var i = 0; i < window.const.ADS_AMOUNT; i++) {
     randomAds[i] = createObject();
   }
+  window.randomAds = randomAds;
 })();

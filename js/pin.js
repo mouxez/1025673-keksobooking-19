@@ -23,7 +23,6 @@
     }
     pins.appendChild(window.const.FRAGMENT);
   };
-  window.createPins = createPins;
   // вычисляет координаты относительно окна
   var pinX = window.mainButton.offsetLeft;
   var pinY = window.mainButton.offsetTop;
@@ -44,4 +43,5 @@
   };
 
   getAddress();
+  window.createPins = createPins;
 })();

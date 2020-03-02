@@ -10,7 +10,6 @@
   // создаёт фрагмент
   var FRAGMENT = document.createDocumentFragment();
 
-
   window.const = {
     PIN_WIDTH: PIN_WIDTH,
     PIN_HEIGHT: PIN_HEIGHT,

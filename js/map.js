@@ -7,7 +7,6 @@
 
   // активирует страницу
   var mainButton = document.querySelector('.map__pin--main');
-  window.mainButton = mainButton;
 
   var activateElements = function (array, isDisabled) {
     for (var j = 0; j < array.length; j++) {
@@ -56,7 +55,7 @@
     });
   };
 
-  window.mainButton.addEventListener('mousedown', function (evt) {
+  mainButton.addEventListener('mousedown', function (evt) {
     if (evt.button === window.const.LEFT_MOUSE_BUTTON) {
       activatePage(fieldsetElements);
       activateElements(fieldsetElements, false);
@@ -65,11 +64,12 @@
   });
 
   // активация по нажатию Enter
-  window.mainButton.addEventListener('keydown', function (evt) {
+  mainButton.addEventListener('keydown', function (evt) {
     if (evt.keyCode === window.const.ENTER_KEY) {
       activatePage(fieldsetElements);
       activateElements(fieldsetElements, false);
       activateElements(selectElements, false);
     }
   });
+  window.mainButton = mainButton;
 })();
