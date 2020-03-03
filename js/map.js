@@ -63,33 +63,6 @@
     }
   });
 
-  // перемещает главную метку
-  mainButton.addEventListener('mousedown', function (evt) {
-    var startCoordinates = {
-      x: evt.clientX,
-      y: evt.clientY
-    };
-    var onMouseMove = function (move) {
-      var shift = {
-        x: startCoordinates.x - move.clientX,
-        y: startCoordinates.y - move.clientY
-      };
-      startCoordinates = {
-        x: move.clientX,
-        y: move.clientY
-      };
-      mainButton.style.top = (mainButton.offsetTop - shift.y) + 'px';
-      mainButton.style.left = (mainButton.offsetLeft - shift.x) + 'px';
-    };
-
-    var onMouseUp = function () {
-      document.removeEventListener('mousemove', onMouseMove);
-      document.removeEventListener('mouseup', onMouseUp);
-    };
-    document.addEventListener('mousemove', onMouseMove);
-    document.addEventListener('mouseup', onMouseUp);
-  });
-
   // активация по нажатию Enter
   mainButton.addEventListener('keydown', function (evt) {
     if (evt.keyCode === window.const.ENTER_KEY) {

@@ -9,6 +9,10 @@
   var ESC_CODE = 27;
   // создаёт фрагмент
   var FRAGMENT = document.createDocumentFragment();
+  var MIN_WINDOW_Y = '130px';
+  var MAX_WINDOW_Y = '630px';
+  var MIN_WINDOW_X = '1px';
+  var MAX_WINDOW_X = '1200px';
 
   window.const = {
     PIN_WIDTH: PIN_WIDTH,
@@ -17,6 +21,10 @@
     LEFT_MOUSE_BUTTON: LEFT_MOUSE_BUTTON,
     ENTER_KEY: ENTER_KEY,
     ESC_CODE: ESC_CODE,
-    FRAGMENT: FRAGMENT
+    FRAGMENT: FRAGMENT,
+    MIN_WINDOW_Y: MIN_WINDOW_Y,
+    MAX_WINDOW_Y: MAX_WINDOW_Y,
+    MIN_WINDOW_X: MIN_WINDOW_X,
+    MAX_WINDOW_X: MAX_WINDOW_X
   };
 })();

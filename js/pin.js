@@ -40,9 +40,11 @@
         addressArea.value = currentCoordinates[0] + ',' + currentCoordinates[1];
       }
     });
-    // меняет адрес при передвижении метки
-    window.mainButton.addEventListener('mousemove', function () {
-      addressArea.value = currentCoordinates[0] + ',' + currentCoordinates[1];
+    // добавляет сохранение адреса после перемещения
+    window.mainButton.addEventListener('mouseup', function (evt) {
+      if (evt.button === window.const.LEFT_MOUSE_BUTTON) {
+        addressArea.value = currentCoordinates[0] + ',' + currentCoordinates[1];
+      }
     });
   };
 
