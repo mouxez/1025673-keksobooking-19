@@ -9,10 +9,10 @@
   var ESC_CODE = 27;
   // создаёт фрагмент
   var FRAGMENT = document.createDocumentFragment();
-  var MIN_WINDOW_Y = '130px';
-  var MAX_WINDOW_Y = '630px';
-  var MIN_WINDOW_X = '1px';
-  var MAX_WINDOW_X = '1200px';
+  var MIN_WINDOW_Y = 130;
+  var MAX_WINDOW_Y = 630;
+  var MIN_WINDOW_X = 1;
+  var MAX_WINDOW_X = 1200;
 
   window.const = {
     PIN_WIDTH: PIN_WIDTH,

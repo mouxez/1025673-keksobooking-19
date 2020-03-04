@@ -40,14 +40,9 @@
         addressArea.value = currentCoordinates[0] + ',' + currentCoordinates[1];
       }
     });
-    // добавляет сохранение адреса после перемещения
-    window.mainButton.addEventListener('mouseup', function (evt) {
-      if (evt.button === window.const.LEFT_MOUSE_BUTTON) {
-        addressArea.value = currentCoordinates[0] + ',' + currentCoordinates[1];
-      }
-    });
   };
 
   getAddress();
   window.createPins = createPins;
+  window.addressArea = addressArea;
 })();
