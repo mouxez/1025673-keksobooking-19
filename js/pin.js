@@ -44,4 +44,5 @@
 
   getAddress();
   window.createPins = createPins;
+  window.addressArea = addressArea;
 })();

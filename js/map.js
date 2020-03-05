@@ -71,5 +71,7 @@
       activateElements(selectElements, false);
     }
   });
+
   window.mainButton = mainButton;
+
 })();
