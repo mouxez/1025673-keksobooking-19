@@ -34,9 +34,6 @@
         var pinTop = window.mainButton.offsetTop - shift.y;
         var pinLeft = window.mainButton.offsetLeft - shift.x;
 
-        window.pinTop = pinTop;
-        window.pinLeft = pinLeft;
-
         // создаёт ограничение и держит метку внутри окна
         if (pinLeft > limits.right) {
           pinLeft = limits.right;
@@ -49,6 +46,9 @@
         } else if (pinTop > limits.bottom) {
           pinTop = limits.bottom;
         }
+
+        window.pinTop = pinTop;
+        window.pinLeft = pinLeft;
 
         window.mainButton.style.left = pinLeft + 'px';
         window.mainButton.style.top = pinTop + 'px';
