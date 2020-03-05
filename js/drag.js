@@ -16,7 +16,7 @@
 
         var limits = {
           top: window.const.MIN_WINDOW_Y - window.const.PIN_HEIGHT,
-          bottom: window.const.MAX_WINDOW_Y - window.const.PIN_HEIGHT,
+          bottom: window.const.MAX_WINDOW_Y,
           left: window.const.MIN_WINDOW_X - (window.const.PIN_WIDTH / 2),
           right: window.const.MAX_WINDOW_X - (window.const.PIN_WIDTH / 2)
         };
@@ -31,8 +31,8 @@
           y: move.clientY
         };
 
-        var pinTop = (window.mainButton.offsetTop - shift.y);
-        var pinLeft = (window.mainButton.offsetLeft - shift.x);
+        var pinTop = window.mainButton.offsetTop - shift.y;
+        var pinLeft = window.mainButton.offsetLeft - shift.x;
 
         window.pinTop = pinTop;
         window.pinLeft = pinLeft;
@@ -54,7 +54,7 @@
         window.mainButton.style.top = pinTop + 'px';
 
         // добавляет сохранение адреса после перемещения
-        window.mainButton.addEventListener('mouseup', function (click) {
+        window.mainButton.addEventListener('mousemove', function (click) {
           if (click.button === window.const.LEFT_MOUSE_BUTTON) {
             window.addressArea.value = window.pinLeft + ',' + window.pinTop;
           }
