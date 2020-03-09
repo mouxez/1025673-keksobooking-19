@@ -13,14 +13,6 @@
   var MAX_WINDOW_Y = 630;
   var MIN_WINDOW_X = 1;
   var MAX_WINDOW_X = 1200;
-  var OK_REQUEST = 200;
-  var BAD_REQUEST = 400;
-  var UNAUTHORIZED = 401;
-  var NOT_FOUND = 404;
-  var SERVER_ERROR = 500;
-  var SERVICE_UNAVAILABLE = 503;
-  var ERROR_POPUP = 'z-index: 100; margin: 0 auto; text-align: center; background-color: red; border-radius: 10%;';
-
 
   window.const = {
     PIN_WIDTH: PIN_WIDTH,
@@ -34,12 +26,5 @@
     MAX_WINDOW_Y: MAX_WINDOW_Y,
     MIN_WINDOW_X: MIN_WINDOW_X,
     MAX_WINDOW_X: MAX_WINDOW_X,
-    OK_REQUEST: OK_REQUEST,
-    BAD_REQUEST: BAD_REQUEST,
-    UNAUTHORIZED: UNAUTHORIZED,
-    NOT_FOUND: NOT_FOUND,
-    SERVER_ERROR: SERVER_ERROR,
-    SERVICE_UNAVAILABLE: SERVICE_UNAVAILABLE,
-    ERROR_POPUP: ERROR_POPUP
   };
 })();

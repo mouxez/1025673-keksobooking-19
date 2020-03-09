@@ -22,6 +22,8 @@
       array[j].disabled = false;
     }
 
+    window.loadData();
+
     // выводит объявления
     window.createPins(window.randomAds);
 
