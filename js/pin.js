@@ -2,7 +2,6 @@
 
 (function () {
   // данные метки
-  var pins = document.querySelector('.map__pins');
   var template = document.querySelector('#pin').content.querySelector('.map__pin');
 
   // Создаёт шаблон метки
@@ -17,11 +16,12 @@
   };
 
   // создаёт метки
+  var pin = document.querySelector('.map__pins');
   var createPins = function (array) {
     for (var j = 0; j < array.length; j++) {
       window.const.FRAGMENT.appendChild(renderDraftPin(array[j]));
     }
-    pins.appendChild(window.const.FRAGMENT);
+    pin.appendChild(window.const.FRAGMENT);
   };
   // вычисляет координаты относительно окна
   var pinX = window.mainButton.offsetLeft;

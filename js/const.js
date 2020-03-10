@@ -7,7 +7,6 @@
   var LEFT_MOUSE_BUTTON = 0;
   var ENTER_KEY = 13;
   var ESC_CODE = 27;
-  // создаёт фрагмент
   var FRAGMENT = document.createDocumentFragment();
   var MIN_WINDOW_Y = 130;
   var MAX_WINDOW_Y = 630;

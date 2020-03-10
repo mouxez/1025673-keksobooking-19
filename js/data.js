@@ -2,34 +2,17 @@
 
 (function () {
   // загружает данные с сервера
-  var randomAds = [];
+  var adsList = [];
   var onSuccessLoad = function () {
-    window.load(function (downloadedPins) {
-      randomAds.push(downloadedPins);
+    window.backend.load(function (downloadedPins) {
+      adsList.push(downloadedPins);
     });
-    return randomAds;
-  };
-
-  var onErrorLoad = function (errorMessage) {
-    var node = document.createElement('div');
-    node.style = window.const.ERROR_POPUP;
-    node.style.position = 'absolute';
-    node.style.left = 0;
-    node.style.right = 0;
-    node.style.top = '20%';
-    node.style.fontSize = '40px';
-    node.style.color = '#000000';
-    node.style.width = '300px';
-    node.style.height = '300px';
-
-    node.textContent = errorMessage;
-    document.body.insertAdjacentElement('afterbegin', node);
+    return adsList;
   };
 
   window.data = {
-    onSuccessLoad: onSuccessLoad,
-    onErrorLoad: onErrorLoad
+    onSuccessLoad: onSuccessLoad
   };
 
-  window.randomAds = randomAds;
+  window.adsList = adsList;
 })();

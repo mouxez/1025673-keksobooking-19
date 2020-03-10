@@ -22,15 +22,15 @@
       array[j].disabled = false;
     }
 
-    window.backend.load(window.const.LOAD_URL, window.data.onSuccessLoad, window.data.onErrorLoad);
+    window.backend.load(window.const.LOAD_URL, window.data.onSuccessLoad, window.backend.onError);
 
     // выводит объявления
-    window.createPins(window.randomAds);
+    window.createPins(window.adsList);
 
     // создаёт массив меток
     var pinsList = [];
     for (var k = 0; k < window.const.ADS_AMOUNT; k++) {
-      pinsList[k] = window.createPins(window.randomAds[k]); //
+      pinsList[k] = window.createPins(window.adsList[k]); //
     }
 
     // убирает класс .map--faded у блока с картой
