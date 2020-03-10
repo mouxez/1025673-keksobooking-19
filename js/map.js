@@ -22,7 +22,7 @@
       array[j].disabled = false;
     }
 
-    window.loadData();
+    window.backend.load(window.const.LOAD_URL, window.data.onSuccessLoad, window.data.onErrorLoad);
 
     // выводит объявления
     window.createPins(window.randomAds);
@@ -75,5 +75,4 @@
   });
 
   window.mainButton = mainButton;
-
 })();

@@ -13,6 +13,9 @@
   var MAX_WINDOW_Y = 630;
   var MIN_WINDOW_X = 1;
   var MAX_WINDOW_X = 1200;
+  var TIMEOUT_MS = 10000;
+  var ERROR_POPUP = 'z-index: 100; margin: 0 auto; text-align: center; background-color: red; border-radius: 10%;';
+  var LOAD_URL = 'https://js.dump.academy/keksobooking/data';
 
   window.const = {
     PIN_WIDTH: PIN_WIDTH,
@@ -26,5 +29,8 @@
     MAX_WINDOW_Y: MAX_WINDOW_Y,
     MIN_WINDOW_X: MIN_WINDOW_X,
     MAX_WINDOW_X: MAX_WINDOW_X,
+    TIMEOUT_MS: TIMEOUT_MS,
+    ERROR_POPUP: ERROR_POPUP,
+    LOAD_URL: LOAD_URL
   };
 })();
