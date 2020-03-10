@@ -72,6 +72,7 @@
   };
 
   window.backend = {
-    load: load
+    load: load,
+    onErrorDefault: onErrorDefault
   };
 })();

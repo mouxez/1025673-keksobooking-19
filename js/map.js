@@ -22,7 +22,7 @@
       array[j].disabled = false;
     }
 
-    window.backend.load(window.const.LOAD_URL, window.data.onSuccessLoad, window.backend.onError);
+    window.backend.load(window.const.LOAD_URL, window.data.onSuccessLoad, window.backend.onErrorDefault);
 
     // выводит объявления
     window.createPins(window.adsList);

@@ -26,7 +26,7 @@
   // вычисляет координаты относительно окна
   var pinX = window.mainButton.offsetLeft;
   var pinY = window.mainButton.offsetTop;
-  var addressArea = document.getElementById('address');
+  var addressArea = document.querySelector('#address');
 
   // в состоянии disabled метка является кругом и расстояние до центра вычисляю прибавляя половину ширины метки (радиус)
   var currentCoordinatesDisabled = [Math.round(pinX) + (window.const.PIN_WIDTH / 2), Math.round(pinY) + (window.const.PIN_WIDTH / 2)];

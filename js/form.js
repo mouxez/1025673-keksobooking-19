@@ -2,8 +2,8 @@
 
 (function () {
   // проверяет соответствие 'количество комнат и гостей'
-  var capacity = document.getElementById('capacity');
-  var roomNumber = document.getElementById('room_number');
+  var capacity = document.querySelector('#capacity');
+  var roomNumber = document.querySelector('#room_number');
 
   var checkGuest = function () {
     if (roomNumber.value === '1' && capacity.value !== '1') {
@@ -20,8 +20,8 @@
   };
 
   // проверяет тип жилья и стоимость
-  var housingType = document.getElementById('type');
-  var priceOfHousing = document.getElementById('price');
+  var housingType = document.querySelector('#type');
+  var priceOfHousing = document.querySelector('#price');
 
   var checkHousingType = function () {
     if (housingType.value === 'flat' && priceOfHousing.value < 1000) {
@@ -43,8 +43,8 @@
   housingType.addEventListener('change', checkHousingType);
 
   // проверяет соответствие полей заезда-выселения
-  var timeIn = document.getElementById('timein');
-  var timeOut = document.getElementById('timeout');
+  var timeIn = document.querySelector('#timein');
+  var timeOut = document.querySelector('#timeout');
 
   timeIn.addEventListener('change', function () {
     timeOut.value = timeIn.value;
