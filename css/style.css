@@ -1249,3 +1249,10 @@ fieldset {
   outline: none;
   opacity: 0.6;
 }
+
+input .active:invalid {
+  outline: 3px solid red;
+}
+input .active:not(:invalid) {
+  outline: 3px solid green;
+}

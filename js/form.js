@@ -53,4 +53,13 @@
   timeOut.addEventListener('change', function () {
     timeIn.value = timeOut.value;
   });
+
+  // добавляет инпуту цвет ошибки ввода
+  var inputElements = document.querySelectorAll('input');
+
+  [].forEach.call(inputElements, function (item) {
+    item.addEventListener('focus', function () {
+      item.classList.toggle('active', true);
+    });
+  });
 })();

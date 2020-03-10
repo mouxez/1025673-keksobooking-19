@@ -2,8 +2,8 @@
 
 (function () {
 // деактивирует страницу
-  var fieldsetElements = document.getElementsByTagName('fieldset');
-  var selectElements = document.getElementsByTagName('select');
+  var fieldsetElements = document.querySelectorAll('fieldset');
+  var selectElements = document.querySelectorAll('select');
 
   // активирует страницу
   var mainButton = document.querySelector('.map__pin--main');
