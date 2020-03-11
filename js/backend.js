@@ -10,9 +10,8 @@
     SERVICE_UNAVAILABLE: 503,
   };
 
-  var xhr = new XMLHttpRequest();
-
   var load = function (url, onLoad, onError) {
+    var xhr = new XMLHttpRequest();
     var errorAlert = onError ? onError : onErrorDefault;
     xhr.responseType = 'json';
     xhr.addEventListener('load', addResponseListener(onLoad, errorAlert, xhr));
@@ -27,7 +26,7 @@
     xhr.send();
   };
 
-  var addResponseListener = function (onLoad, onError) {
+  var addResponseListener = function (onLoad, onError, xhr) {
 
     xhr.addEventListener('load', function () {
       switch (xhr.status) {
@@ -72,7 +71,6 @@
   };
 
   window.backend = {
-    load: load,
-    onErrorDefault: onErrorDefault
+    load: load
   };
 })();
