@@ -17,12 +17,16 @@
 
   // создаёт метки
   var pin = document.querySelector('.map__pins');
-  var createPins = function (array) {
-    for (var j = 0; j < array.length; j++) {
-      window.const.FRAGMENT.appendChild(renderDraftPin(array[j]));
+
+  var createPins = function (pinsArray) {
+    if (Array.isArray(pinsArray)) {
+      for (var j = 0; j < pinsArray.length; j++) {
+        window.const.FRAGMENT.appendChild(renderDraftPin(pinsArray[j]));
+      }
+      pin.appendChild(window.const.FRAGMENT);
     }
-    pin.appendChild(window.const.FRAGMENT);
   };
+
   // вычисляет координаты относительно окна
   var pinX = window.mainButton.offsetLeft;
   var pinY = window.mainButton.offsetTop;

@@ -3,10 +3,8 @@
 (function () {
   // загружает данные с сервера
   var adsList = [];
-  var onSuccessLoad = function () {
-    window.backend.load(function (downloadedPins) {
-      adsList.push(downloadedPins);
-    });
+  var onSuccessLoad = function (downloadedPins) {
+    adsList.push(downloadedPins);
     return adsList;
   };
 
