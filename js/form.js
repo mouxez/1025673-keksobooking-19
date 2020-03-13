@@ -75,13 +75,6 @@
     window.backend.onSuccessCustom();
   });
 
-  // скрывает окно успешной загрузки
-  document.addEventListener('keydown', function (evt) {
-    if (evt.keyCode === window.const.ESC_CODE) {
-      document.querySelector('div.success').remove();
-    }
-  });
-
   // сбрасывает форму к дефолту
   resetButton.addEventListener('click', function (evt) {
     if (evt.keyCode === window.const.LEFT_MOUSE_BUTTON) {

@@ -116,6 +116,19 @@
     var templateSuccess = document.querySelector('#success').content.cloneNode(true);
     window.const.FRAGMENT.appendChild(templateSuccess);
     main.appendChild(window.const.FRAGMENT);
+
+    // скрывает окно успешной загрузки
+    document.addEventListener('keydown', function (evt) {
+      if (evt.keyCode === window.const.ESC_CODE) {
+        document.querySelector('div.success').remove();
+      }
+    });
+
+    document.querySelector('div.success').addEventListener('click', function (evt) {
+      if (evt.keyCode === window.const.LEFT_MOUSE_BUTTON) {
+        document.querySelector('div.success').remove();
+      }
+    });
   };
 
   window.backend = {

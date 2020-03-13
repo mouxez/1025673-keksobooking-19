@@ -1250,9 +1250,10 @@ fieldset {
   opacity: 0.6;
 }
 
-input .active:invalid {
+.active:invalid {
   outline: 3px solid red;
 }
-input .active {
+
+.active:valid {
   outline: 3px solid green;
 }
