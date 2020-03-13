@@ -69,10 +69,13 @@
   adForm.addEventListener('submit', function (evt) {
     evt.preventDefault();
     window.backend.save(window.const.SAVE_URL, new FormData(adForm), function () {
-      window.map.activateElements(window.map.selectElements, true);
-      window.map.activateElements(window.map.fieldsetElements, true);
     });
     window.backend.onSuccessCustom();
+    adForm.reset();
+    window.map.activateElements(window.map.selectElements, true);
+    window.map.activateElements(window.map.fieldsetElements, true);
+    document.querySelector('.map').classList.add('map--faded');
+    document.querySelector('.ad-form').classList.add('ad-form--disabled');
   });
 
   // сбрасывает форму к дефолту
