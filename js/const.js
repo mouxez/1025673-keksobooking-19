@@ -15,6 +15,7 @@
   var TIMEOUT_MS = 10000;
   var ERROR_POPUP = 'z-index: 100; margin: 0 auto; text-align: center; background-color: red; border-radius: 10%;';
   var LOAD_URL = 'https://js.dump.academy/keksobooking/data';
+  var SAVE_URL = 'https://js.dump.academy/keksobooking';
 
   window.const = {
     PIN_WIDTH: PIN_WIDTH,
@@ -30,6 +31,7 @@
     MAX_WINDOW_X: MAX_WINDOW_X,
     TIMEOUT_MS: TIMEOUT_MS,
     ERROR_POPUP: ERROR_POPUP,
-    LOAD_URL: LOAD_URL
+    LOAD_URL: LOAD_URL,
+    SAVE_URL: SAVE_URL
   };
 })();

@@ -28,8 +28,8 @@
   };
 
   // вычисляет координаты относительно окна
-  var pinX = window.mainButton.offsetLeft;
-  var pinY = window.mainButton.offsetTop;
+  var pinX = window.map.mainButton.offsetLeft;
+  var pinY = window.map.mainButton.offsetTop;
   var addressArea = document.querySelector('#address');
 
   // в состоянии disabled метка является кругом и расстояние до центра вычисляю прибавляя половину ширины метки (радиус)
@@ -39,7 +39,7 @@
 
   var getAddress = function () {
     addressArea.value = currentCoordinatesDisabled[0] + ',' + currentCoordinatesDisabled[1];
-    window.mainButton.addEventListener('mousedown', function (evt) {
+    window.map.mainButton.addEventListener('mousedown', function (evt) {
       if (evt.button === window.const.LEFT_MOUSE_BUTTON) {
         addressArea.value = currentCoordinates[0] + ',' + currentCoordinates[1];
       }
@@ -47,6 +47,9 @@
   };
 
   getAddress();
-  window.createPins = createPins;
-  window.addressArea = addressArea;
+
+  window.pin = {
+    createPins: createPins,
+    addressArea: addressArea
+  };
 })();

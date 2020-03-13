@@ -26,12 +26,12 @@
     }
 
     // выводит объявления
-    window.createPins(window.adsList);
+    window.pin.createPins(window.data.adsList);
 
     // создаёт массив меток
     var pinsList = [];
     for (var k = 0; k < window.const.ADS_AMOUNT; k++) {
-      pinsList[k] = window.createPins(window.adsList[k]); //
+      pinsList[k] = window.pin.createPins(window.data.adsList[k]); //
     }
 
     // убирает класс .map--faded у блока с картой
@@ -46,13 +46,13 @@
     // добавляет обработчик на каждую метку
     mapPinNodeList.forEach(function (item, index, evt) {
       item.addEventListener('click', function () {
-        window.mapCard.remove();
-        window.createCard(index);
+        window.card.mapCard.remove();
+        window.card.createCard(index);
       });
       if (evt.keyCode === window.const.ENTER_KEY) {
         item.addEventListener('keydown', function () {
-          window.mapCard.remove();
-          window.createCard(index);
+          window.card.mapCard.remove();
+          window.card.createCard(index);
         });
       }
     });
@@ -75,5 +75,11 @@
     }
   });
 
-  window.mainButton = mainButton;
+  window.map = {
+    mainButton: mainButton,
+    activatePage: activatePage,
+    fieldsetElements: fieldsetElements,
+    activateElements: activateElements,
+    selectElements: selectElements
+  };
 })();

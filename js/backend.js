@@ -7,14 +7,17 @@
     UNAUTHORIZED: 401,
     NOT_FOUND: 404,
     SERVER_ERROR: 500,
-    SERVICE_UNAVAILABLE: 503,
+    SERVICE_UNAVAILABLE: 503
   };
 
-  var load = function (url, onLoad, onError) {
+  var main = document.querySelector('main');
+
+  var load = function (url, onLoad, errorAlert) {
     var xhr = new XMLHttpRequest();
-    var errorAlert = onError ? onError : onErrorDefault;
+    errorAlert = onErrorCustom ? onErrorCustom : onErrorDefault;
     xhr.responseType = 'json';
     xhr.addEventListener('load', addResponseListener(onLoad, errorAlert, xhr));
+    xhr.addEventListener('load', window.pin.createPins());
     xhr.addEventListener('error', function () {
       errorAlert('Произошла ошибка соединения');
     });
@@ -24,6 +27,20 @@
     xhr.timeout = window.const.TIMEOUT_MS;
     xhr.open('GET', url);
     xhr.send();
+  };
+
+  var save = function (url, data, onSuccess, errorAlert) {
+
+    errorAlert = onErrorCustom ? onErrorCustom : onErrorDefault;
+    var xhr = new XMLHttpRequest();
+    xhr.responseType = 'json';
+    xhr.addEventListener('load', addResponseListener(onSuccess, errorAlert, xhr));
+    xhr.addEventListener('error', function () {
+      errorAlert('Произошла ошибка соединения');
+    });
+
+    xhr.open('POST', url);
+    xhr.send(data);
   };
 
   var addResponseListener = function (onLoad, onError, xhr) {
@@ -70,7 +87,40 @@
     document.body.insertAdjacentElement('afterbegin', node);
   };
 
+  var onErrorCustom = function (errorMessage) {
+
+    var templateError = document.querySelector('#error').content.cloneNode(true);
+    templateError.textContent = errorMessage;
+    window.const.FRAGMENT.appendChild(templateError);
+    main.appendChild(window.const.FRAGMENT);
+
+    // скрывает окно ошибки загрузки ESC
+    var errorButton = document.querySelector('.error__button');
+
+    errorButton.addEventListener('keydown', function (evt) {
+      if (evt.keyCode === window.const.ESC_CODE) {
+        document.querySelector('div.error').remove();
+      }
+    });
+
+    // скрывает окно ошибки загрузки 'click'
+    errorButton.addEventListener('click', function (evt) {
+      if (evt.keyCode === window.const.LEFT_MOUSE_BUTTON) {
+        document.querySelector('div.error').remove();
+      }
+    });
+  };
+
+  var onSuccessCustom = function () {
+
+    var templateSuccess = document.querySelector('#success').content.cloneNode(true);
+    window.const.FRAGMENT.appendChild(templateSuccess);
+    main.appendChild(window.const.FRAGMENT);
+  };
+
   window.backend = {
-    load: load
+    load: load,
+    save: save,
+    onSuccessCustom: onSuccessCustom
   };
 })();

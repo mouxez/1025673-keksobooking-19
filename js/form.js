@@ -4,6 +4,8 @@
   // проверяет соответствие 'количество комнат и гостей'
   var capacity = document.querySelector('#capacity');
   var roomNumber = document.querySelector('#room_number');
+  var adForm = document.querySelector('.ad-form');
+  var resetButton = adForm.querySelector('.ad-form__reset');
 
   var checkGuest = function () {
     if (roomNumber.value === '1' && capacity.value !== '1') {
@@ -61,5 +63,29 @@
     item.addEventListener('focus', function () {
       item.classList.toggle('active', true);
     });
+  });
+
+  // отправляет данные формы на сервер при нажатии 'Опубликовать'
+  adForm.addEventListener('submit', function (evt) {
+    evt.preventDefault();
+    window.backend.save(window.const.SAVE_URL, new FormData(adForm), function () {
+      window.map.activateElements(window.map.selectElements, true);
+      window.map.activateElements(window.map.fieldsetElements, true);
+    });
+    window.backend.onSuccessCustom();
+  });
+
+  // скрывает окно успешной загрузки
+  document.addEventListener('keydown', function (evt) {
+    if (evt.keyCode === window.const.ESC_CODE) {
+      document.querySelector('div.success').remove();
+    }
+  });
+
+  // сбрасывает форму к дефолту
+  resetButton.addEventListener('click', function (evt) {
+    if (evt.keyCode === window.const.LEFT_MOUSE_BUTTON) {
+      adForm.reset();
+    }
   });
 })();
