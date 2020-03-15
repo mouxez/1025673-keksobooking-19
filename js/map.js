@@ -18,9 +18,6 @@
   activateElements(fieldsetElements, true);
 
   var activatePage = function (array) {
-
-    // window.backend.load(window.const.LOAD_URL, window.data.onSuccessLoad);
-
     for (var j = 0; j < array.length; j++) {
       array[j].disabled = false;
     }

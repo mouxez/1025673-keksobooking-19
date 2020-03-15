@@ -12,9 +12,9 @@
 
   var main = document.querySelector('main');
 
-  var load = function (url, onLoad, onErrorCustom) {
+  var load = function (url, onLoad, onError) {
     var xhr = new XMLHttpRequest();
-    var errorAlert = onErrorCustom ? onErrorCustom : onErrorDefault;
+    var errorAlert = onError ? onError : onErrorDefault;
     xhr.responseType = 'json';
     xhr.addEventListener('load', addResponseListener(onLoad, errorAlert, xhr));
     xhr.addEventListener('error', function () {
@@ -28,9 +28,8 @@
     xhr.send();
   };
 
-  var save = function (url, data, onSuccess, onErrorCustom) {
-
-    var errorAlert = onErrorCustom ? onErrorCustom : onErrorDefault;
+  var save = function (url, data, onSuccess, onError) {
+    var errorAlert = onError ? onError : onErrorDefault;
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
     xhr.addEventListener('load', addResponseListener(onSuccess, errorAlert, xhr));
@@ -43,7 +42,6 @@
   };
 
   var addResponseListener = function (onLoad, onError, xhr) {
-
     xhr.addEventListener('load', function () {
       switch (xhr.status) {
         case StatusCode.OK:
@@ -86,8 +84,7 @@
     document.body.insertAdjacentElement('afterbegin', node);
   };
 
-  var onErrorCustom = function () {
-
+  var onError = function () {
     var templateError = document.querySelector('#error').content.cloneNode(true);
     window.const.FRAGMENT.appendChild(templateError);
     main.appendChild(window.const.FRAGMENT);
@@ -101,16 +98,15 @@
       }
     });
 
-    // скрывает окно ошибки загрузки 'click'
-    errorButton.addEventListener('click', function (evt) {
+    // скрывает окно ошибки загрузки
+    errorButton.addEventListener('mousedown', function (evt) {
       if (evt.keyCode === window.const.LEFT_MOUSE_BUTTON) {
         document.querySelector('div.error').remove();
       }
     });
   };
 
-  var onSuccessCustom = function () {
-
+  var onSuccess = function () {
     var templateSuccess = document.querySelector('#success').content.cloneNode(true);
     window.const.FRAGMENT.appendChild(templateSuccess);
     main.appendChild(window.const.FRAGMENT);
@@ -122,7 +118,7 @@
       }
     });
 
-    document.querySelector('div.success').addEventListener('click', function (evt) {
+    document.querySelector('div.success').addEventListener('mousedown', function (evt) {
       if (evt.keyCode === window.const.LEFT_MOUSE_BUTTON) {
         document.querySelector('div.success').remove();
       }
@@ -132,7 +128,7 @@
   window.backend = {
     load: load,
     save: save,
-    onSuccessCustom: onSuccessCustom,
-    onErrorCustom: onErrorCustom
+    onSuccess: onSuccess,
+    onError: onError
   };
 })();

@@ -4,7 +4,7 @@
 
   // загружает данные с сервера
   var getPins = function () {
-    window.backend.load(window.const.LOAD_URL, window.data.onSuccessLoad, window.backend.onErrorCustom);
+    window.backend.load(window.const.LOAD_URL, window.data.onSuccessLoad, window.backend.onError);
   };
 
   document.querySelector('.map__pin--main').addEventListener('click', function (evt) {
@@ -15,9 +15,7 @@
 
   var adsList = [];
   var onSuccessLoad = function (downloadedPins) {
-
     window.data.adsList = downloadedPins;
-
     window.map.activatePage(window.map.fieldsetElements);
 
     // выводит объявления
