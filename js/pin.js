@@ -2,7 +2,6 @@
 
 (function () {
   // данные метки
-  var pins = document.querySelector('.map__pins');
   var template = document.querySelector('#pin').content.querySelector('.map__pin');
 
   // Создаёт шаблон метки
@@ -17,16 +16,21 @@
   };
 
   // создаёт метки
-  var createPins = function (array) {
-    for (var j = 0; j < array.length; j++) {
-      window.const.FRAGMENT.appendChild(renderDraftPin(array[j]));
+  var pin = document.querySelector('.map__pins');
+
+  var createPins = function (pinsArray) {
+    if (Array.isArray(pinsArray)) {
+      for (var j = 0; j < pinsArray.length; j++) {
+        window.const.FRAGMENT.appendChild(renderDraftPin(pinsArray[j]));
+      }
+      pin.appendChild(window.const.FRAGMENT);
     }
-    pins.appendChild(window.const.FRAGMENT);
   };
+
   // вычисляет координаты относительно окна
-  var pinX = window.mainButton.offsetLeft;
-  var pinY = window.mainButton.offsetTop;
-  var addressArea = document.getElementById('address');
+  var pinX = window.map.mainButton.offsetLeft;
+  var pinY = window.map.mainButton.offsetTop;
+  var addressArea = document.querySelector('#address');
 
   // в состоянии disabled метка является кругом и расстояние до центра вычисляю прибавляя половину ширины метки (радиус)
   var currentCoordinatesDisabled = [Math.round(pinX) + (window.const.PIN_WIDTH / 2), Math.round(pinY) + (window.const.PIN_WIDTH / 2)];
@@ -35,7 +39,7 @@
 
   var getAddress = function () {
     addressArea.value = currentCoordinatesDisabled[0] + ',' + currentCoordinatesDisabled[1];
-    window.mainButton.addEventListener('mousedown', function (evt) {
+    window.map.mainButton.addEventListener('mousedown', function (evt) {
       if (evt.button === window.const.LEFT_MOUSE_BUTTON) {
         addressArea.value = currentCoordinates[0] + ',' + currentCoordinates[1];
       }
@@ -43,6 +47,9 @@
   };
 
   getAddress();
-  window.createPins = createPins;
-  window.addressArea = addressArea;
+
+  window.pin = {
+    createPins: createPins,
+    addressArea: addressArea
+  };
 })();

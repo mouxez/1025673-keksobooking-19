@@ -2,7 +2,7 @@
 
 (function () {
   // перемещает главную метку
-  window.mainButton.addEventListener('mousedown', function (evt) {
+  window.map.mainButton.addEventListener('mousedown', function (evt) {
     if (evt.button === window.const.LEFT_MOUSE_BUTTON) {
       var startCoordinates = {
         x: evt.clientX,
@@ -31,8 +31,8 @@
           y: move.clientY
         };
 
-        var pinTop = window.mainButton.offsetTop - shift.y;
-        var pinLeft = window.mainButton.offsetLeft - shift.x;
+        var pinTop = window.map.mainButton.offsetTop - shift.y;
+        var pinLeft = window.map.mainButton.offsetLeft - shift.x;
 
         // создаёт ограничение и держит метку внутри окна
         if (pinLeft > limits.right) {
@@ -50,13 +50,13 @@
         window.pinTop = pinTop;
         window.pinLeft = pinLeft;
 
-        window.mainButton.style.left = pinLeft + 'px';
-        window.mainButton.style.top = pinTop + 'px';
+        window.map.mainButton.style.left = pinLeft + 'px';
+        window.map.mainButton.style.top = pinTop + 'px';
 
         // добавляет сохранение адреса после перемещения
-        window.mainButton.addEventListener('mousemove', function (click) {
+        window.map.mainButton.addEventListener('mousemove', function (click) {
           if (click.button === window.const.LEFT_MOUSE_BUTTON) {
-            window.addressArea.value = window.pinLeft + ',' + window.pinTop;
+            window.pin.addressArea.value = window.pinLeft + ',' + window.pinTop;
           }
         });
       };
@@ -65,9 +65,9 @@
         if (dragger === true) {
           var onClickPreventDefault = function (click) {
             click.preventDefault();
-            window.mainButton.removeEventListener('click', onClickPreventDefault);
+            window.map.mainButton.removeEventListener('click', onClickPreventDefault);
           };
-          window.mainButton.addEventListener('click', onClickPreventDefault);
+          window.map.mainButton.addEventListener('click', onClickPreventDefault);
         }
         document.removeEventListener('mousemove', onMouseMove);
         document.removeEventListener('mouseup', onMouseUp);
