@@ -68,9 +68,7 @@
   // отправляет данные формы на сервер при нажатии 'Опубликовать'
   adForm.addEventListener('submit', function (evt) {
     evt.preventDefault();
-    window.backend.save(window.const.SAVE_URL, new FormData(adForm), function () {
-    });
-    window.backend.onSuccessCustom();
+    window.backend.save(window.const.SAVE_URL, new FormData(adForm), window.backend.onSuccessCustom, window.backend.onErrorCustom);
     adForm.reset();
     window.map.activateElements(window.map.selectElements, true);
     window.map.activateElements(window.map.fieldsetElements, true);

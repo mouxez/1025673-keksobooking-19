@@ -12,12 +12,11 @@
 
   var main = document.querySelector('main');
 
-  var load = function (url, onLoad, errorAlert) {
+  var load = function (url, onLoad, onErrorCustom) {
     var xhr = new XMLHttpRequest();
-    errorAlert = onErrorCustom ? onErrorCustom : onErrorDefault;
+    var errorAlert = onErrorCustom ? onErrorCustom : onErrorDefault;
     xhr.responseType = 'json';
     xhr.addEventListener('load', addResponseListener(onLoad, errorAlert, xhr));
-    xhr.addEventListener('load', window.pin.createPins());
     xhr.addEventListener('error', function () {
       errorAlert('Произошла ошибка соединения');
     });
@@ -29,9 +28,9 @@
     xhr.send();
   };
 
-  var save = function (url, data, onSuccess, errorAlert) {
+  var save = function (url, data, onSuccess, onErrorCustom) {
 
-    errorAlert = onErrorCustom ? onErrorCustom : onErrorDefault;
+    var errorAlert = onErrorCustom ? onErrorCustom : onErrorDefault;
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
     xhr.addEventListener('load', addResponseListener(onSuccess, errorAlert, xhr));
@@ -87,10 +86,9 @@
     document.body.insertAdjacentElement('afterbegin', node);
   };
 
-  var onErrorCustom = function (errorMessage) {
+  var onErrorCustom = function () {
 
     var templateError = document.querySelector('#error').content.cloneNode(true);
-    templateError.textContent = errorMessage;
     window.const.FRAGMENT.appendChild(templateError);
     main.appendChild(window.const.FRAGMENT);
 
@@ -134,6 +132,7 @@
   window.backend = {
     load: load,
     save: save,
-    onSuccessCustom: onSuccessCustom
+    onSuccessCustom: onSuccessCustom,
+    onErrorCustom: onErrorCustom
   };
 })();

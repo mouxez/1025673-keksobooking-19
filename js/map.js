@@ -19,14 +19,14 @@
 
   var activatePage = function (array) {
 
-    window.backend.load(window.const.LOAD_URL, window.data.onSuccessLoad);
+    // window.backend.load(window.const.LOAD_URL, window.data.onSuccessLoad);
 
     for (var j = 0; j < array.length; j++) {
       array[j].disabled = false;
     }
 
-    // выводит объявления
-    window.pin.createPins(window.data.adsList);
+    activateElements(fieldsetElements, false);
+    activateElements(selectElements, false);
 
     // создаёт массив меток
     var pinsList = [];
@@ -39,41 +39,7 @@
 
     // активирует форму объявления
     document.querySelector('.ad-form').classList.remove('ad-form--disabled');
-
-    // получаем коллекцию меток на карте
-    var mapPinNodeList = document.querySelectorAll('.map__pin:not(.map__pin--main)');
-
-    // добавляет обработчик на каждую метку
-    mapPinNodeList.forEach(function (item, index, evt) {
-      item.addEventListener('click', function () {
-        window.card.mapCard.remove();
-        window.card.createCard(index);
-      });
-      if (evt.keyCode === window.const.ENTER_KEY) {
-        item.addEventListener('keydown', function () {
-          window.card.mapCard.remove();
-          window.card.createCard(index);
-        });
-      }
-    });
   };
-
-  mainButton.addEventListener('mousedown', function (evt) {
-    if (evt.button === window.const.LEFT_MOUSE_BUTTON) {
-      activatePage(fieldsetElements);
-      activateElements(fieldsetElements, false);
-      activateElements(selectElements, false);
-    }
-  });
-
-  // активация по нажатию Enter
-  mainButton.addEventListener('keydown', function (evt) {
-    if (evt.keyCode === window.const.ENTER_KEY) {
-      activatePage(fieldsetElements);
-      activateElements(fieldsetElements, false);
-      activateElements(selectElements, false);
-    }
-  });
 
   window.map = {
     mainButton: mainButton,
