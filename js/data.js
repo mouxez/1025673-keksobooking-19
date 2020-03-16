@@ -16,6 +16,12 @@
   var adsList = [];
   var onSuccessLoad = function (downloadedPins) {
     window.data.adsList = downloadedPins;
+
+    // ограничивает количество объявлений
+    // if (window.data.adsList.length > 5) {
+    //   window.data.adsList.length = 5;
+    // }
+
     window.map.activatePage(window.map.fieldsetElements);
 
     // выводит объявления

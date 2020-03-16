@@ -104,6 +104,12 @@
         document.querySelector('div.error').remove();
       }
     });
+
+    document.addEventListener('mousedown', function (evt) {
+      if (evt.button === window.const.LEFT_MOUSE_BUTTON) {
+        document.querySelector('div.error').remove();
+      }
+    });
   };
 
   var onSuccess = function () {
