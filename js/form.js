@@ -26,22 +26,27 @@
   var priceOfHousing = document.querySelector('#price');
 
   var checkHousingType = function () {
-    if (housingType.value === 'flat' && priceOfHousing.value < 1000) {
+    if (housingType.value === 'bungalo') {
+      priceOfHousing.placeholder = 'от 0 руб';
+      priceOfHousing.min = '0';
+    } else if (housingType.value === 'flat' && priceOfHousing.value < 1000) {
       housingType.setCustomValidity('«Квартира» — минимальная цена за ночь 1 000');
       priceOfHousing.placeholder = 'от 1000 руб';
+      priceOfHousing.min = '1000';
     } else if (housingType.value === 'house' && priceOfHousing.value < 5000) {
       housingType.setCustomValidity('«Дом» — минимальная цена 5 000');
       priceOfHousing.placeholder = 'от 5000 руб';
+      priceOfHousing.min = '5000';
     } else if (housingType.value === 'palace' && priceOfHousing.value < 10000) {
       housingType.setCustomValidity('«Дворец» — минимальная цена 10 000');
       priceOfHousing.placeholder = 'от 10000 руб';
-    } else if (housingType.value === 'bungalo') {
-      priceOfHousing.placeholder = 'от 0 руб';
+      priceOfHousing.min = '10000';
     }
     housingType.setCustomValidity('');
   };
 
   roomNumber.addEventListener('change', checkGuest);
+  checkHousingType();
   housingType.addEventListener('change', checkHousingType);
 
   // проверяет соответствие полей заезда-выселения
@@ -74,11 +79,15 @@
     window.map.activateElements(window.map.fieldsetElements, true);
     document.querySelector('.map').classList.add('map--faded');
     document.querySelector('.ad-form').classList.add('ad-form--disabled');
+    window.card.mapCard.remove();
+    window.mapPinNodeList.forEach(function (item) {
+      item.remove();
+    });
   });
 
   // сбрасывает форму к дефолту
-  resetButton.addEventListener('click', function (evt) {
-    if (evt.keyCode === window.const.LEFT_MOUSE_BUTTON) {
+  resetButton.addEventListener('mousedown', function (evt) {
+    if (evt.button === window.const.LEFT_MOUSE_BUTTON) {
       adForm.reset();
     }
   });

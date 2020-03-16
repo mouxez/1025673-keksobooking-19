@@ -92,7 +92,7 @@
     // скрывает окно ошибки загрузки ESC
     var errorButton = document.querySelector('.error__button');
 
-    errorButton.addEventListener('keydown', function (evt) {
+    document.addEventListener('keydown', function (evt) {
       if (evt.keyCode === window.const.ESC_CODE) {
         document.querySelector('div.error').remove();
       }
@@ -100,7 +100,7 @@
 
     // скрывает окно ошибки загрузки
     errorButton.addEventListener('mousedown', function (evt) {
-      if (evt.keyCode === window.const.LEFT_MOUSE_BUTTON) {
+      if (evt.button === window.const.LEFT_MOUSE_BUTTON) {
         document.querySelector('div.error').remove();
       }
     });
@@ -118,8 +118,8 @@
       }
     });
 
-    document.querySelector('div.success').addEventListener('mousedown', function (evt) {
-      if (evt.keyCode === window.const.LEFT_MOUSE_BUTTON) {
+    document.addEventListener('mousedown', function (evt) {
+      if (evt.button === window.const.LEFT_MOUSE_BUTTON) {
         document.querySelector('div.success').remove();
       }
     });
