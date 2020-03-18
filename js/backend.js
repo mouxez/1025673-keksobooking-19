@@ -84,31 +84,43 @@
     document.body.insertAdjacentElement('afterbegin', node);
   };
 
+  var removeErrorMouse = function (evt) {
+    if (evt.button === window.const.LEFT_MOUSE_BUTTON) {
+      document.querySelector('div.error').remove();
+    }
+  };
+
+  var removeSuccessMouse = function (evt) {
+    if (evt.button === window.const.LEFT_MOUSE_BUTTON) {
+      document.querySelector('div.success').remove();
+    }
+  };
+
+  var removeErrorEsc = function (evt) {
+    if (evt.keyCode === window.const.ESC_CODE) {
+      document.querySelector('div.error').remove();
+    }
+  };
+
+  var removeSuccessEsc = function (evt) {
+    if (evt.keyCode === window.const.ESC_CODE) {
+      document.querySelector('div.success').remove();
+    }
+  };
+
   var onError = function () {
     var templateError = document.querySelector('#error').content.cloneNode(true);
     window.const.FRAGMENT.appendChild(templateError);
     main.appendChild(window.const.FRAGMENT);
 
-    // скрывает окно ошибки загрузки ESC
-    var errorButton = document.querySelector('.error__button');
+    document.addEventListener('mousedown', removeErrorMouse);
+    document.addEventListener('keydown', removeErrorEsc);
 
-    document.addEventListener('keydown', function (evt) {
-      if (evt.keyCode === window.const.ESC_CODE) {
-        document.querySelector('div.error').remove();
-      }
+    document.addEventListener('mouseup', function () {
+      document.removeEventListener('mousedown', removeErrorMouse);
     });
-
-    // скрывает окно ошибки загрузки
-    errorButton.addEventListener('mousedown', function (evt) {
-      if (evt.button === window.const.LEFT_MOUSE_BUTTON) {
-        document.querySelector('div.error').remove();
-      }
-    });
-
-    document.addEventListener('mousedown', function (evt) {
-      if (evt.button === window.const.LEFT_MOUSE_BUTTON) {
-        document.querySelector('div.error').remove();
-      }
+    document.addEventListener('keyup', function () {
+      document.removeEventListener('keydown', removeErrorEsc);
     });
   };
 
@@ -117,17 +129,14 @@
     window.const.FRAGMENT.appendChild(templateSuccess);
     main.appendChild(window.const.FRAGMENT);
 
-    // скрывает окно успешной загрузки
-    document.addEventListener('keydown', function (evt) {
-      if (evt.keyCode === window.const.ESC_CODE) {
-        document.querySelector('div.success').remove();
-      }
-    });
+    document.addEventListener('keydown', removeSuccessEsc);
+    document.addEventListener('mousedown', removeSuccessMouse);
 
-    document.addEventListener('mousedown', function (evt) {
-      if (evt.button === window.const.LEFT_MOUSE_BUTTON) {
-        document.querySelector('div.success').remove();
-      }
+    document.addEventListener('mouseup', function () {
+      document.removeEventListener('mousedown', removeSuccessMouse);
+    });
+    document.addEventListener('keyup', function () {
+      document.removeEventListener('keydown', removeSuccessEsc);
     });
   };
 
