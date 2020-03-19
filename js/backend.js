@@ -12,9 +12,9 @@
 
   var main = document.querySelector('main');
 
-  var load = function (url, onLoad, onErrorCustom) {
+  var load = function (url, onLoad, onError) {
     var xhr = new XMLHttpRequest();
-    var errorAlert = onErrorCustom ? onErrorCustom : onErrorDefault;
+    var errorAlert = onError ? onError : onErrorDefault;
     xhr.responseType = 'json';
     xhr.addEventListener('load', addResponseListener(onLoad, errorAlert, xhr));
     xhr.addEventListener('error', function () {
@@ -28,9 +28,8 @@
     xhr.send();
   };
 
-  var save = function (url, data, onSuccess, onErrorCustom) {
-
-    var errorAlert = onErrorCustom ? onErrorCustom : onErrorDefault;
+  var save = function (url, data, onSuccess, onError) {
+    var errorAlert = onError ? onError : onErrorDefault;
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
     xhr.addEventListener('load', addResponseListener(onSuccess, errorAlert, xhr));
@@ -43,7 +42,6 @@
   };
 
   var addResponseListener = function (onLoad, onError, xhr) {
-
     xhr.addEventListener('load', function () {
       switch (xhr.status) {
         case StatusCode.OK:
@@ -86,53 +84,68 @@
     document.body.insertAdjacentElement('afterbegin', node);
   };
 
-  var onErrorCustom = function () {
+  var removeErrorMouse = function (evt) {
+    if (evt.button === window.const.LEFT_MOUSE_BUTTON) {
+      document.querySelector('div.error').remove();
+    }
+  };
 
+  var removeSuccessMouse = function (evt) {
+    if (evt.button === window.const.LEFT_MOUSE_BUTTON) {
+      document.querySelector('div.success').remove();
+    }
+  };
+
+  var removeErrorEsc = function (evt) {
+    if (evt.keyCode === window.const.ESC_CODE) {
+      document.querySelector('div.error').remove();
+    }
+  };
+
+  var removeSuccessEsc = function (evt) {
+    if (evt.keyCode === window.const.ESC_CODE) {
+      document.querySelector('div.success').remove();
+    }
+  };
+
+  var onError = function () {
     var templateError = document.querySelector('#error').content.cloneNode(true);
     window.const.FRAGMENT.appendChild(templateError);
     main.appendChild(window.const.FRAGMENT);
 
-    // скрывает окно ошибки загрузки ESC
-    var errorButton = document.querySelector('.error__button');
-
-    errorButton.addEventListener('keydown', function (evt) {
-      if (evt.keyCode === window.const.ESC_CODE) {
-        document.querySelector('div.error').remove();
-      }
-    });
-
-    // скрывает окно ошибки загрузки 'click'
-    errorButton.addEventListener('click', function (evt) {
-      if (evt.keyCode === window.const.LEFT_MOUSE_BUTTON) {
-        document.querySelector('div.error').remove();
-      }
-    });
+    document.querySelector('div.error').addEventListener('mousedown', removeErrorMouse);
+    document.addEventListener('keydown', removeErrorEsc);
   };
 
-  var onSuccessCustom = function () {
+  var closeCard = function () {
+    document.querySelector('div.error').removeEventListener('mousedown', removeErrorMouse);
+    document.removeEventListener('keydown', removeErrorEsc);
+  };
 
+  if (document.querySelector('div.error') === false) {
+    closeCard();
+  }
+
+  var onSuccess = function () {
     var templateSuccess = document.querySelector('#success').content.cloneNode(true);
     window.const.FRAGMENT.appendChild(templateSuccess);
     main.appendChild(window.const.FRAGMENT);
 
-    // скрывает окно успешной загрузки
-    document.addEventListener('keydown', function (evt) {
-      if (evt.keyCode === window.const.ESC_CODE) {
-        document.querySelector('div.success').remove();
-      }
-    });
+    document.addEventListener('keydown', removeSuccessEsc);
+    document.addEventListener('mousedown', removeSuccessMouse);
 
-    document.querySelector('div.success').addEventListener('click', function (evt) {
-      if (evt.keyCode === window.const.LEFT_MOUSE_BUTTON) {
-        document.querySelector('div.success').remove();
-      }
+    document.addEventListener('mouseup', function () {
+      document.removeEventListener('mousedown', removeSuccessMouse);
+    });
+    document.addEventListener('keyup', function () {
+      document.removeEventListener('keydown', removeSuccessEsc);
     });
   };
 
   window.backend = {
     load: load,
     save: save,
-    onSuccessCustom: onSuccessCustom,
-    onErrorCustom: onErrorCustom
+    onSuccess: onSuccess,
+    onError: onError
   };
 })();

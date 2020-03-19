@@ -38,10 +38,10 @@
   var currentCoordinates = [Math.round(pinX) + (window.const.PIN_WIDTH / 2), Math.round(pinY) + window.const.PIN_HEIGHT];
 
   var getAddress = function () {
-    addressArea.value = currentCoordinatesDisabled[0] + ',' + currentCoordinatesDisabled[1];
+    addressArea.value = currentCoordinatesDisabled.join(', ');
     window.map.mainButton.addEventListener('mousedown', function (evt) {
       if (evt.button === window.const.LEFT_MOUSE_BUTTON) {
-        addressArea.value = currentCoordinates[0] + ',' + currentCoordinates[1];
+        addressArea.value = currentCoordinates.join(', ');
       }
     });
   };
