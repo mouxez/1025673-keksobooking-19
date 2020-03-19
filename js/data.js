@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  var mapFilters = document.querySelector('.map__filters');
+  // var mapFilters = document.querySelector('.map__filters');
 
   // загружает данные с сервера
   var getPins = function () {

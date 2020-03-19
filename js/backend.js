@@ -113,7 +113,7 @@
     window.const.FRAGMENT.appendChild(templateError);
     main.appendChild(window.const.FRAGMENT);
 
-    document.addEventListener('mousedown', removeErrorMouse);
+    document.querySelector('div.error').addEventListener('mousedown', removeErrorMouse);
     document.addEventListener('keydown', removeErrorEsc);
 
     document.addEventListener('mouseup', function () {
