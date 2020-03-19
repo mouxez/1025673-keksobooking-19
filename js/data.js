@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  // var mapFilters = document.querySelector('.map__filters');
+  var mapFilters = document.querySelector('.map__filters');
 
   // загружает данные с сервера
   var getPins = function () {
@@ -20,18 +20,18 @@
 
     window.pin.createPins(window.data.adsList);
 
-    // mapFilters.addEventListener('change', function () {
-    //   window.card.mapCard.remove();
-    //   mapPinNodeList.forEach(function (item) {
-    //     item.remove();
-    //   });
-    //   window.pin.createPins(window.filter.onFilterChange(window.data.adsList));
-    // });
+    mapFilters.addEventListener('change', function () {
+      window.card.mapCard.remove();
+      mapPinNodeList.forEach(function (item) {
+        item.remove();
+      });
+      window.pin.createPins(window.filter.onFilterChange(window.data.adsList));
+    });
 
     // ограничивает количество объявлений
-    // if (window.data.adsList.length > 5) {
-    //   window.data.adsList.length = 5;
-    // }
+    if (window.data.adsList.length > 5) {
+      window.data.adsList.length = 5;
+    }
 
     window.map.activatePage(window.map.fieldsetElements);
 
