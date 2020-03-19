@@ -115,14 +115,16 @@
 
     document.querySelector('div.error').addEventListener('mousedown', removeErrorMouse);
     document.addEventListener('keydown', removeErrorEsc);
-
-    document.addEventListener('mouseup', function () {
-      document.removeEventListener('mousedown', removeErrorMouse);
-    });
-    document.addEventListener('keyup', function () {
-      document.removeEventListener('keydown', removeErrorEsc);
-    });
   };
+
+  var closeCard = function () {
+    document.querySelector('div.error').removeEventListener('mousedown', removeErrorMouse);
+    document.removeEventListener('keydown', removeErrorEsc);
+  };
+
+  if (document.querySelector('div.error') === false) {
+    closeCard();
+  }
 
   var onSuccess = function () {
     var templateSuccess = document.querySelector('#success').content.cloneNode(true);
