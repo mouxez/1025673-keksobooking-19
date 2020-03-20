@@ -1,10 +1,8 @@
 'use strict';
 
 (function () {
-  // данные метки
   var template = document.querySelector('#pin').content.querySelector('.map__pin');
 
-  // Создаёт шаблон метки
   var renderDraftPin = function (pin) {
     var userPin = template.cloneNode(true);
     userPin.style.left = (pin.location.x - window.const.PIN_WIDTH / 2) + 'px';
@@ -15,7 +13,6 @@
     return userPin;
   };
 
-  // создаёт метки
   var pin = document.querySelector('.map__pins');
 
   var createPins = function (pinsArray) {
@@ -27,14 +24,11 @@
     }
   };
 
-  // вычисляет координаты относительно окна
   var pinX = window.map.mainButton.offsetLeft;
   var pinY = window.map.mainButton.offsetTop;
   var addressArea = document.querySelector('#address');
 
-  // в состоянии disabled метка является кругом и расстояние до центра вычисляю прибавляя половину ширины метки (радиус)
   var currentCoordinatesDisabled = [Math.round(pinX) + (window.const.PIN_WIDTH / 2), Math.round(pinY) + (window.const.PIN_WIDTH / 2)];
-  // в активном состоянии для вычисления координаты Y острого конца метки прибавляю всю её высоту
   var currentCoordinates = [Math.round(pinX) + (window.const.PIN_WIDTH / 2), Math.round(pinY) + window.const.PIN_HEIGHT];
 
   var getAddress = function () {

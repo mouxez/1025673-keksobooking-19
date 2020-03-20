@@ -3,7 +3,6 @@
 (function () {
   var mapFilters = document.querySelector('.map__filters');
 
-  // загружает данные с сервера
   var getPins = function () {
     window.backend.load(window.const.LOAD_URL, window.data.onSuccessLoad, window.backend.onError);
   };
@@ -18,28 +17,31 @@
   var onSuccessLoad = function (downloadedPins) {
     window.data.adsList = downloadedPins;
 
-    window.pin.createPins(window.data.adsList);
+    var initialData = [window.data.adsList[0], window.data.adsList[1], window.data.adsList[2], window.data.adsList[3], window.data.adsList[4]];
+    window.pin.createPins(initialData);
 
     mapFilters.addEventListener('change', function () {
-      window.card.mapCard.remove();
-      mapPinNodeList.forEach(function (item) {
-        item.remove();
-      });
-      window.pin.createPins(window.filter.onFilterChange(window.data.adsList));
-    });
+      var filterWithDelay = window.debounce(function () {
+        mapPinNodeList = document.querySelectorAll('.map__pin:not(.map__pin--main)');
+        window.card.mapCard.remove();
+        mapPinNodeList.forEach(function (item) {
+          item.remove();
+        });
 
-    // ограничивает количество объявлений
-    if (window.data.adsList.length > 5) {
-      window.data.adsList.length = 5;
-    }
+        if (window.filter.onFilterChange(window.data.adsList).length > 5) {
+          window.filter.onFilterChange(window.data.adsList).length = 5;
+        }
+
+        window.pin.createPins(window.filter.onFilterChange(window.data.adsList));
+      });
+      filterWithDelay();
+    });
 
     window.map.activatePage(window.map.fieldsetElements);
 
-    // получаем коллекцию меток на карте
     var mapPinNodeList = document.querySelectorAll('.map__pin:not(.map__pin--main)');
     window.mapPinNodeList = mapPinNodeList;
 
-    // добавляет обработчик на каждую метку
     mapPinNodeList.forEach(function (item, index, evt) {
       item.addEventListener('click', function () {
         window.card.mapCard.remove();

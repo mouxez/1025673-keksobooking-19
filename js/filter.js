@@ -5,7 +5,6 @@
   var housingPrice = document.querySelector('#housing-price');
   var housingRoom = document.querySelector('#housing-rooms');
   var housingGuest = document.querySelector('#housing-guests');
-
   var featureWifi = document.querySelector('#filter-wifi');
   var featureDishwasher = document.querySelector('#filter-dishwasher');
   var featureParking = document.querySelector('#filter-parking');
@@ -14,45 +13,40 @@
   var featureConditioner = document.querySelector('#filter-conditioner');
 
   var onFilterChange = function (array) {
-    var filteredType = housingType.value;
-    var filteredPrice = housingPrice.value;
-    var filteredRoom = housingRoom.value;
-    var filteredGuest = housingGuest.value;
-
     var typeFilteredOffers = array.filter(function (adOffer) {
-      if (filteredType === 'any') {
+      if (housingType.value === 'any') {
         return adOffer;
       }
 
-      return adOffer.offer.type === filteredType;
+      return adOffer.offer.type === housingType.value;
     });
 
     var priceFilteredOffers = typeFilteredOffers.filter(function (adOffer) {
-      if (filteredPrice === 'middle') {
+      if (housingPrice.value === 'middle') {
         return (adOffer.offer.price >= 10000 && adOffer.offer.price <= 50000);
-      } else if (filteredPrice === 'low') {
+      } else if (housingPrice.value === 'low') {
         return (adOffer.offer.price < 10000);
-      } else if (filteredPrice === 'high') {
+      } else if (housingPrice.value === 'high') {
         return (adOffer.offer.price > 50000);
       }
 
       return adOffer;
     });
 
-    var roomsFilteredOffers = priceFilteredOffers. filter(function (adOffer) {
-      if (filteredRoom === 'any') {
+    var roomsFilteredOffers = priceFilteredOffers.filter(function (adOffer) {
+      if (housingRoom.value === 'any') {
         return adOffer;
       }
 
-      return adOffer.offer.rooms === Number(filteredRoom);
+      return adOffer.offer.rooms === Number(housingRoom.value);
     });
 
     var guestsFilteredOffers = roomsFilteredOffers.filter(function (adOffer) {
-      if (filteredGuest === 'any') {
+      if (housingGuest.value === 'any') {
         return adOffer;
       }
 
-      return adOffer.offer.guests === Number(filteredGuest);
+      return adOffer.offer.guests === Number(housingGuest.value);
     });
 
     var wifiFilteredOffers = guestsFilteredOffers.filter(function (adOffer) {

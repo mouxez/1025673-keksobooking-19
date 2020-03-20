@@ -1,11 +1,9 @@
 'use strict';
 
 (function () {
-  // находит и копирует шаблон карточки
   var templateCard = document.querySelector('#card').content;
   var mapCard = templateCard.querySelector('.map__card').cloneNode(true);
 
-  // создаёт элемент списка .popup__feature
   var createFeature = function (feature) {
     var featureElement = document.createElement('li');
     featureElement.className = 'popup__feature popup__feature--' + feature;
@@ -13,7 +11,6 @@
     return featureElement;
   };
 
-  // вставляет элементы списка .popup__feature на страницу
   var createFeatures = function (features) {
     features.forEach(function (feature) {
       window.const.FRAGMENT.appendChild(createFeature(feature));
@@ -22,7 +19,6 @@
     return window.const.FRAGMENT;
   };
 
-  // создаёт элемент .popup__photo
   var imgElement = function (img) {
     for (var j = 0; j < img.length; j++) {
       var photo = document.createElement('img');
@@ -34,9 +30,7 @@
     }
   };
 
-  // создаёт данные карточки объявления
   var renderCard = function (index) {
-    // удаляет существующие элементы photos и features в разметке
     window.util.removeElement(mapCard.querySelector('.popup__photos'));
     window.util.removeElement(mapCard.querySelector('.popup__features'));
 
@@ -47,7 +41,7 @@
     mapCard.querySelector('.popup__text--price').textContent = window.data.adsList[index].offer.price + '₽/ночь';
     mapCard.querySelector('.popup__text--capacity ').textContent = window.data.adsList[index].offer.rooms + ' комнаты для ' + window.data.adsList[index].offer.guests + ' гостей';
     mapCard.querySelector('.popup__text--time').textContent = 'Заезд после ' + window.data.adsList[index].offer.checkin + ', выезд до' + window.data.adsList[index].offer.checkout;
-    mapCard.querySelector('.popup__features').innerHTML = '';
+    mapCard.querySelector('.popup__features').textContent = '';
     mapCard.querySelector('.popup__features').appendChild(createFeatures(window.data.adsList[index].offer.features));
     mapCard.querySelector('.popup__description').textContent = window.data.adsList[index].offer.description;
     mapCard.querySelector('.popup__avatar').src = window.data.adsList[index].author.avatar;
@@ -64,13 +58,11 @@
     return mapCard;
   };
 
-  // создаёт карточку
   var map = document.querySelector('.map');
   var createCard = function (index) {
     window.const.FRAGMENT.appendChild(renderCard(index));
     map.appendChild(window.const.FRAGMENT);
 
-    // закрывает объявление
     var popupClose = document.querySelector('.popup__close');
     popupClose.addEventListener('click', function () {
       mapCard.remove();

@@ -1,7 +1,6 @@
 'use strict';
 
 (function () {
-  // проверяет соответствие 'количество комнат и гостей'
   var capacity = document.querySelector('#capacity');
   var roomNumber = document.querySelector('#room_number');
   var adForm = document.querySelector('.ad-form');
@@ -21,7 +20,6 @@
     }
   };
 
-  // проверяет тип жилья и стоимость
   var housingType = document.querySelector('#type');
   var priceOfHousing = document.querySelector('#price');
 
@@ -49,7 +47,6 @@
   checkHousingType();
   housingType.addEventListener('change', checkHousingType);
 
-  // проверяет соответствие полей заезда-выселения
   var timeIn = document.querySelector('#timein');
   var timeOut = document.querySelector('#timeout');
 
@@ -61,7 +58,6 @@
     timeIn.value = timeOut.value;
   });
 
-  // добавляет инпуту цвет ошибки ввода
   var inputElements = document.querySelectorAll('input');
 
   [].forEach.call(inputElements, function (item) {
@@ -70,7 +66,6 @@
     });
   });
 
-  // отправляет данные формы на сервер при нажатии 'Опубликовать'
   adForm.addEventListener('submit', function (evt) {
     evt.preventDefault();
     window.backend.save(window.const.SAVE_URL, new FormData(adForm), window.backend.onSuccess, window.backend.onError);
@@ -85,7 +80,6 @@
     });
   });
 
-  // сбрасывает форму к дефолту
   resetButton.addEventListener('mousedown', function (evt) {
     if (evt.button === window.const.LEFT_MOUSE_BUTTON) {
       adForm.reset();
