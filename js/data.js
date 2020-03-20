@@ -3,7 +3,6 @@
 (function () {
   var mapFilters = document.querySelector('.map__filters');
 
-  // загружает данные с сервера
   var getPins = function () {
     window.backend.load(window.const.LOAD_URL, window.data.onSuccessLoad, window.backend.onError);
   };
@@ -29,7 +28,6 @@
           item.remove();
         });
 
-        // ограничивает количество объявлений
         if (window.filter.onFilterChange(window.data.adsList).length > 5) {
           window.filter.onFilterChange(window.data.adsList).length = 5;
         }
@@ -41,11 +39,9 @@
 
     window.map.activatePage(window.map.fieldsetElements);
 
-    // получаем коллекцию меток на карте
     var mapPinNodeList = document.querySelectorAll('.map__pin:not(.map__pin--main)');
     window.mapPinNodeList = mapPinNodeList;
 
-    // добавляет обработчик на каждую метку
     mapPinNodeList.forEach(function (item, index, evt) {
       item.addEventListener('click', function () {
         window.card.mapCard.remove();
