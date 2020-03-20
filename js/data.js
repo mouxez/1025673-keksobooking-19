@@ -23,7 +23,7 @@
 
     mapFilters.addEventListener('change', function () {
       var filterWithDelay = window.debounce(function () {
-
+        mapPinNodeList = document.querySelectorAll('.map__pin:not(.map__pin--main)');
         window.card.mapCard.remove();
         mapPinNodeList.forEach(function (item) {
           item.remove();

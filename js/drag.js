@@ -1,7 +1,6 @@
 'use strict';
 
 (function () {
-  // перемещает главную метку
   window.map.mainButton.addEventListener('mousedown', function (evt) {
     if (evt.button === window.const.LEFT_MOUSE_BUTTON) {
       var startCoordinates = {
@@ -34,7 +33,6 @@
         var pinTop = window.map.mainButton.offsetTop - shift.y;
         var pinLeft = window.map.mainButton.offsetLeft - shift.x;
 
-        // создаёт ограничение и держит метку внутри окна
         if (pinLeft > limits.right) {
           pinLeft = limits.right;
         } else if (pinLeft < limits.left) {
@@ -53,7 +51,6 @@
         window.map.mainButton.style.left = pinLeft + 'px';
         window.map.mainButton.style.top = pinTop + 'px';
 
-        // добавляет сохранение адреса после перемещения
         window.map.mainButton.addEventListener('mousemove', function (click) {
           if (click.button === window.const.LEFT_MOUSE_BUTTON) {
             window.pin.addressArea.value = window.pinLeft + ',' + window.pinTop;
