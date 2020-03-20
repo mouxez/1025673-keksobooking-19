@@ -18,20 +18,26 @@
   var onSuccessLoad = function (downloadedPins) {
     window.data.adsList = downloadedPins;
 
-    window.pin.createPins(window.data.adsList);
+    var initialData = [window.data.adsList[0], window.data.adsList[1], window.data.adsList[2], window.data.adsList[3], window.data.adsList[4]];
+    window.pin.createPins(initialData);
 
     mapFilters.addEventListener('change', function () {
-      window.card.mapCard.remove();
-      mapPinNodeList.forEach(function (item) {
-        item.remove();
-      });
-      window.pin.createPins(window.filter.onFilterChange(window.data.adsList));
-    });
+      var filterWithDelay = window.debounce(function () {
 
-    // ограничивает количество объявлений
-    if (window.data.adsList.length > 5) {
-      window.data.adsList.length = 5;
-    }
+        window.card.mapCard.remove();
+        mapPinNodeList.forEach(function (item) {
+          item.remove();
+        });
+
+        // ограничивает количество объявлений
+        if (window.filter.onFilterChange(window.data.adsList).length > 5) {
+          window.filter.onFilterChange(window.data.adsList).length = 5;
+        }
+
+        window.pin.createPins(window.filter.onFilterChange(window.data.adsList));
+      });
+      filterWithDelay();
+    });
 
     window.map.activatePage(window.map.fieldsetElements);
 
