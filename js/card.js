@@ -13,10 +13,10 @@
 
   var createFeatures = function (features) {
     features.forEach(function (feature) {
-      window.const.FRAGMENT.appendChild(createFeature(feature));
+      window.fragment.appendChild(createFeature(feature));
     });
 
-    return window.const.FRAGMENT;
+    return window.fragment;
   };
 
   var imgElement = function (img) {
@@ -26,16 +26,22 @@
       photo.src = img[j];
       photo.alt = 'Фотография ' + j;
       photo.style = 'width: 45px; height: 40px;';
-      window.const.FRAGMENT.appendChild(photo);
+      window.fragment.appendChild(photo);
+    }
+  };
+
+  var removeElement = function (parent) {
+    while (parent.firstChild) {
+      parent.removeChild(parent.firstChild);
     }
   };
 
   var renderCard = function (index) {
-    window.util.removeElement(mapCard.querySelector('.popup__photos'));
-    window.util.removeElement(mapCard.querySelector('.popup__features'));
+    removeElement(mapCard.querySelector('.popup__photos'));
+    removeElement(mapCard.querySelector('.popup__features'));
 
     imgElement(window.data.adsList[index].offer.photos);
-    mapCard.querySelector('.popup__photos').appendChild(window.const.FRAGMENT);
+    mapCard.querySelector('.popup__photos').appendChild(window.fragment);
     mapCard.querySelector('.popup__title').textContent = window.data.adsList[index].offer.title;
     mapCard.querySelector('.popup__text--address').textContent = window.data.adsList[index].offer.address;
     mapCard.querySelector('.popup__text--price').textContent = window.data.adsList[index].offer.price + '₽/ночь';
@@ -60,8 +66,8 @@
 
   var map = document.querySelector('.map');
   var createCard = function (index) {
-    window.const.FRAGMENT.appendChild(renderCard(index));
-    map.appendChild(window.const.FRAGMENT);
+    window.fragment.appendChild(renderCard(index));
+    map.appendChild(window.fragment);
 
     var popupClose = document.querySelector('.popup__close');
     popupClose.addEventListener('click', function () {

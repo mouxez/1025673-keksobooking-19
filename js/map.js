@@ -12,6 +12,12 @@
     }
   };
 
+  // var activateElements = function (array, isDisabled) {
+  //   array.forEach(function (index) {
+  //     array[index].disabled = isDisabled;
+  //   });
+  // };
+
   activateElements(selectElements, true);
   activateElements(fieldsetElements, true);
 
@@ -22,11 +28,6 @@
 
     activateElements(fieldsetElements, false);
     activateElements(selectElements, false);
-
-    var pinsList = [];
-    for (var k = 0; k < window.const.ADS_AMOUNT; k++) {
-      pinsList[k] = window.pin.createPins(window.data.adsList[k]); //
-    }
 
     document.querySelector('.map').classList.remove('map--faded');
 

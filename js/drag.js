@@ -1,6 +1,13 @@
 'use strict';
 
 (function () {
+  var limits = {
+    top: window.const.MIN_WINDOW_Y - window.const.PIN_HEIGHT,
+    bottom: window.const.MAX_WINDOW_Y,
+    left: window.const.MIN_WINDOW_X - (window.const.PIN_WIDTH / 2),
+    right: window.const.MAX_WINDOW_X - (window.const.PIN_WIDTH / 2)
+  };
+
   window.map.mainButton.addEventListener('mousedown', function (evt) {
     if (evt.button === window.const.LEFT_MOUSE_BUTTON) {
       var startCoordinates = {
@@ -12,13 +19,6 @@
 
       var onMouseMove = function (move) {
         dragger = true;
-
-        var limits = {
-          top: window.const.MIN_WINDOW_Y - window.const.PIN_HEIGHT,
-          bottom: window.const.MAX_WINDOW_Y,
-          left: window.const.MIN_WINDOW_X - (window.const.PIN_WIDTH / 2),
-          right: window.const.MAX_WINDOW_X - (window.const.PIN_WIDTH / 2)
-        };
 
         var shift = {
           x: startCoordinates.x - move.clientX,

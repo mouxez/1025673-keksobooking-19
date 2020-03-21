@@ -11,17 +11,17 @@
   };
 
   var main = document.querySelector('main');
+  window.fragment = document.createDocumentFragment();
 
   var load = function (url, onLoad, onError) {
     var xhr = new XMLHttpRequest();
-    var errorAlert = onError ? onError : onErrorDefault;
     xhr.responseType = 'json';
-    xhr.addEventListener('load', addResponseListener(onLoad, errorAlert, xhr));
+    xhr.addEventListener('load', addResponseListener(onLoad, onError, xhr));
     xhr.addEventListener('error', function () {
-      errorAlert('Произошла ошибка соединения');
+      onErrorDefault('Произошла ошибка соединения, проверьте подключение к интернету');
     });
     xhr.addEventListener('timeout', function () {
-      errorAlert('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
+      onError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
     });
     xhr.timeout = window.const.TIMEOUT_MS;
     xhr.open('GET', url);
@@ -29,12 +29,11 @@
   };
 
   var save = function (url, data, onSuccess, onError) {
-    var errorAlert = onError ? onError : onErrorDefault;
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
-    xhr.addEventListener('load', addResponseListener(onSuccess, errorAlert, xhr));
+    xhr.addEventListener('load', addResponseListener(onSuccess, onError, xhr));
     xhr.addEventListener('error', function () {
-      errorAlert('Произошла ошибка соединения');
+      onErrorDefault('Произошла ошибка соединения. Пожалуйста, проверьте подключение к сети интернет');
     });
 
     xhr.open('POST', url);
@@ -70,7 +69,8 @@
 
   var onErrorDefault = function (errorMessage) {
     var node = document.createElement('div');
-    node.style = window.const.ERROR_POPUP;
+    node.classList.add('onErrorDefault');
+    node.style = 'z-index: 100; margin: 0 auto; background-color: red;';
     node.style.position = 'absolute';
     node.style.left = 0;
     node.style.right = 0;
@@ -82,6 +82,13 @@
 
     node.textContent = errorMessage;
     document.body.insertAdjacentElement('afterbegin', node);
+
+
+    document.querySelector('onErrorDefault').addEventListener('mousedown', function (evt) { // не работает
+      if (evt.keyCode === window.const.LEFT_MOUSE_BUTTON) {
+        document.querySelector('onErrorDefault').remove();
+      }
+    });
   };
 
   var removeErrorMouse = function (evt) {
@@ -110,8 +117,8 @@
 
   var onError = function () {
     var templateError = document.querySelector('#error').content.cloneNode(true);
-    window.const.FRAGMENT.appendChild(templateError);
-    main.appendChild(window.const.FRAGMENT);
+    window.fragment.appendChild(templateError);
+    main.appendChild(window.fragment);
 
     document.querySelector('div.error').addEventListener('mousedown', removeErrorMouse);
     document.addEventListener('keydown', removeErrorEsc);
@@ -128,8 +135,8 @@
 
   var onSuccess = function () {
     var templateSuccess = document.querySelector('#success').content.cloneNode(true);
-    window.const.FRAGMENT.appendChild(templateSuccess);
-    main.appendChild(window.const.FRAGMENT);
+    window.fragment.appendChild(templateSuccess);
+    main.appendChild(window.fragment);
 
     document.addEventListener('keydown', removeSuccessEsc);
     document.addEventListener('mousedown', removeSuccessMouse);

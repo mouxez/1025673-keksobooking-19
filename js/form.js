@@ -83,6 +83,14 @@
   resetButton.addEventListener('mousedown', function (evt) {
     if (evt.button === window.const.LEFT_MOUSE_BUTTON) {
       adForm.reset();
+      window.map.activateElements(window.map.selectElements, true);
+      window.map.activateElements(window.map.fieldsetElements, true);
+      document.querySelector('.map').classList.add('map--faded');
+      document.querySelector('.ad-form').classList.add('ad-form--disabled');
+      window.card.mapCard.remove();
+      window.mapPinNodeList.forEach(function (item) {
+        item.remove();
+      });
     }
   });
 })();

@@ -7,13 +7,11 @@
   var LEFT_MOUSE_BUTTON = 0;
   var ENTER_KEY = 13;
   var ESC_CODE = 27;
-  var FRAGMENT = document.createDocumentFragment();
   var MIN_WINDOW_Y = 130;
   var MAX_WINDOW_Y = 630;
   var MIN_WINDOW_X = 1;
   var MAX_WINDOW_X = 1200;
   var TIMEOUT_MS = 10000;
-  var ERROR_POPUP = 'z-index: 100; margin: 0 auto; text-align: center; background-color: red; border-radius: 10%;';
   var LOAD_URL = 'https://js.dump.academy/keksobooking/data';
   var SAVE_URL = 'https://js.dump.academy/keksobooking';
   var DEBOUNCE_INTERVAL = 500;
@@ -26,13 +24,11 @@
     LEFT_MOUSE_BUTTON: LEFT_MOUSE_BUTTON,
     ENTER_KEY: ENTER_KEY,
     ESC_CODE: ESC_CODE,
-    FRAGMENT: FRAGMENT,
     MIN_WINDOW_Y: MIN_WINDOW_Y,
     MAX_WINDOW_Y: MAX_WINDOW_Y,
     MIN_WINDOW_X: MIN_WINDOW_X,
     MAX_WINDOW_X: MAX_WINDOW_X,
     TIMEOUT_MS: TIMEOUT_MS,
-    ERROR_POPUP: ERROR_POPUP,
     LOAD_URL: LOAD_URL,
     SAVE_URL: SAVE_URL,
     DEBOUNCE_INTERVAL: DEBOUNCE_INTERVAL

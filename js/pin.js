@@ -16,12 +16,10 @@
   var pin = document.querySelector('.map__pins');
 
   var createPins = function (pinsArray) {
-    if (Array.isArray(pinsArray)) {
-      for (var j = 0; j < pinsArray.length; j++) {
-        window.const.FRAGMENT.appendChild(renderDraftPin(pinsArray[j]));
-      }
-      pin.appendChild(window.const.FRAGMENT);
+    for (var j = 0; j < pinsArray.length; j++) {
+      window.fragment.appendChild(renderDraftPin(pinsArray[j]));
     }
+    pin.appendChild(window.fragment);
   };
 
   var pinX = window.map.mainButton.offsetLeft;

@@ -3,6 +3,16 @@
 (function () {
   var mapFilters = document.querySelector('.map__filters');
 
+  var getPinList = function () {
+    var mapPinNodeList = document.querySelectorAll('.map__pin:not(.map__pin--main)');
+    mapPinNodeList.forEach(function (item, index) {
+      item.addEventListener('click', function () {
+        window.card.mapCard.remove();
+        window.card.createCard(index);
+      });
+    });
+  };
+
   var getPins = function () {
     window.backend.load(window.const.LOAD_URL, window.data.onSuccessLoad, window.backend.onError);
   };
@@ -33,27 +43,27 @@
         }
 
         window.pin.createPins(window.filter.onFilterChange(window.data.adsList));
+        getPinList();
+        getFocus();
       });
       filterWithDelay();
     });
+
+    var getFocus = function () {
+      [].forEach.call(mapPinNodeList, function (item) {
+        item.addEventListener('focus', function () {
+          item.classList.toggle('map__pin--active', true);
+        });
+      });
+    };
 
     window.map.activatePage(window.map.fieldsetElements);
 
     var mapPinNodeList = document.querySelectorAll('.map__pin:not(.map__pin--main)');
     window.mapPinNodeList = mapPinNodeList;
 
-    mapPinNodeList.forEach(function (item, index, evt) {
-      item.addEventListener('click', function () {
-        window.card.mapCard.remove();
-        window.card.createCard(index);
-      });
-      if (evt.keyCode === window.const.ENTER_KEY) {
-        item.addEventListener('keydown', function () {
-          window.card.mapCard.remove();
-          window.card.createCard(index);
-        });
-      }
-    });
+    getPinList();
+    getFocus();
   };
 
   window.data = {
