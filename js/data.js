@@ -17,17 +17,23 @@
     window.backend.load(window.const.LOAD_URL, window.data.onSuccessLoad, window.backend.onError);
   };
 
-  document.querySelector('.map__pin--main').addEventListener('mousedown', function (evt) {
+  var drawPins = function (evt) {
     if (evt.button === window.const.LEFT_MOUSE_BUTTON) {
       getPins();
     }
-  });
+  };
+
+  document.querySelector('.map__pin--main').addEventListener('mousedown', drawPins);
+
+  var removeMainPinEvent = function () {
+    document.querySelector('.map__pin--main').removeEventListener('mousedown', drawPins);
+  };
 
   var adsList = [];
   var onSuccessLoad = function (downloadedPins) {
     window.data.adsList = downloadedPins;
 
-    var initialData = [window.data.adsList[0], window.data.adsList[1], window.data.adsList[2], window.data.adsList[3], window.data.adsList[4]];
+    var initialData = window.data.adsList.slice(0, 5);
     window.pin.createPins(initialData);
 
     mapFilters.addEventListener('change', function () {
@@ -43,6 +49,7 @@
         }
 
         window.pin.createPins(window.filter.onFilterChange(window.data.adsList));
+        mapPinNodeList = document.querySelectorAll('.map__pin:not(.map__pin--main)');
         getPinList();
         getFocus();
       });
@@ -52,11 +59,13 @@
     var getFocus = function () {
       [].forEach.call(mapPinNodeList, function (item) {
         item.addEventListener('focus', function () {
+          [].forEach.call(mapPinNodeList, function (index) {
+            index.classList.remove('map__pin--active', true);
+          });
           item.classList.toggle('map__pin--active', true);
         });
       });
     };
-
     window.map.activatePage(window.map.fieldsetElements);
 
     var mapPinNodeList = document.querySelectorAll('.map__pin:not(.map__pin--main)');
@@ -64,6 +73,7 @@
 
     getPinList();
     getFocus();
+    removeMainPinEvent();
   };
 
   window.data = {

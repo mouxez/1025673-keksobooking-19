@@ -67,14 +67,26 @@
     });
   };
 
+  var removeOnErrorDefaultMouse = function (evt) {
+    if (evt.button === window.const.LEFT_MOUSE_BUTTON) {
+      document.querySelector('.connection__error').remove();
+    }
+  };
+
+  var removeOnErrorDefaultEsc = function (evt) {
+    if (evt.keyCode === window.const.ESC_CODE) {
+      document.querySelector('.connection__error').remove();
+    }
+  };
+
   var onErrorDefault = function (errorMessage) {
     var node = document.createElement('div');
-    node.classList.add('onErrorDefault');
+    node.classList.add('connection__error');
     node.style = 'z-index: 100; margin: 0 auto; background-color: red;';
     node.style.position = 'absolute';
     node.style.left = 0;
     node.style.right = 0;
-    node.style.top = '20%';
+    node.style.top = '40%';
     node.style.fontSize = '40px';
     node.style.color = '#000000';
     node.style.width = '300px';
@@ -83,13 +95,18 @@
     node.textContent = errorMessage;
     document.body.insertAdjacentElement('afterbegin', node);
 
-
-    document.querySelector('onErrorDefault').addEventListener('mousedown', function (evt) { // не работает
-      if (evt.keyCode === window.const.LEFT_MOUSE_BUTTON) {
-        document.querySelector('onErrorDefault').remove();
-      }
-    });
+    document.addEventListener('mousedown', removeOnErrorDefaultMouse);
+    document.addEventListener('keydown', removeOnErrorDefaultEsc);
   };
+
+  var closeOnErrorDefault = function () {
+    document.removeEventListener('mousedown', removeOnErrorDefaultMouse);
+    document.removeEventListener('keydown', removeOnErrorDefaultEsc);
+  };
+
+  if (document.querySelector('.connection__error') === false) {
+    closeOnErrorDefault();
+  }
 
   var removeErrorMouse = function (evt) {
     if (evt.button === window.const.LEFT_MOUSE_BUTTON) {

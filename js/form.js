@@ -5,23 +5,22 @@
   var roomNumber = document.querySelector('#room_number');
   var adForm = document.querySelector('.ad-form');
   var resetButton = adForm.querySelector('.ad-form__reset');
-
-  var checkGuest = function () {
-    if (roomNumber.value === '1' && capacity.value !== '1') {
-      capacity.setCustomValidity('1 комната — «для 1 гостя»');
-    } else if (roomNumber.value === '2' && (capacity.value !== '1' || capacity.value !== '2')) {
-      capacity.setCustomValidity('2 комнаты — «для 2 гостей» или «для 1 гостя»');
-    } else if (roomNumber.value === '3' && capacity.value === '0') {
-      capacity.setCustomValidity('3 комнаты — «для 3 гостей», «для 2 гостей» или «для 1 гостя»');
-    } else if (roomNumber.value === '100' && capacity.value !== '0') {
-      capacity.setCustomValidity('100 комнат — «не для гостей»');
-    } else {
-      capacity.setCustomValidity('');
-    }
-  };
-
   var housingType = document.querySelector('#type');
   var priceOfHousing = document.querySelector('#price');
+
+  var checkGuest = function (evt) {
+    var target = evt.target.value;
+    var capacityOptions = capacity.querySelectorAll('option');
+    capacityOptions.forEach(function (item) {
+      var option = item;
+      option.disabled = target === '100' ? option.value !== '0' : option.value > target || option.value === '0';
+      option.selected = option.value === target || (option.value === '0' && target === '100');
+    });
+  };
+
+  roomNumber.addEventListener('change', function (evt) {
+    checkGuest(evt);
+  });
 
   var checkHousingType = function () {
     if (housingType.value === 'bungalo') {
@@ -43,7 +42,7 @@
     housingType.setCustomValidity('');
   };
 
-  roomNumber.addEventListener('change', checkGuest);
+  // roomNumber.addEventListener('change', checkGuest);
   checkHousingType();
   housingType.addEventListener('change', checkHousingType);
 
