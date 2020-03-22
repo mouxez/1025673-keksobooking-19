@@ -26,8 +26,8 @@
   var pinY = window.map.mainButton.offsetTop;
   var addressArea = document.querySelector('#address');
 
-  var currentCoordinatesDisabled = [Math.round(pinX) + (window.const.PIN_WIDTH / 2), Math.round(pinY) + (window.const.PIN_WIDTH / 2)];
-  var currentCoordinates = [Math.round(pinX) + (window.const.PIN_WIDTH / 2), Math.round(pinY) + window.const.PIN_HEIGHT];
+  var currentCoordinatesDisabled = [Math.round(pinX + (window.const.PIN_WIDTH / 2)), Math.round(pinY + (window.const.PIN_WIDTH / 2))];
+  var currentCoordinates = [Math.round(pinX + (window.const.PIN_WIDTH / 2)), Math.round(pinY + (window.const.PIN_HEIGHT))];
 
   var getAddress = function () {
     addressArea.value = currentCoordinatesDisabled.join(', ');

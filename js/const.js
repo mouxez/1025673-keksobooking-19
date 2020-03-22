@@ -1,8 +1,8 @@
 'use strict';
 
 (function () {
-  var PIN_WIDTH = 50;
-  var PIN_HEIGHT = 70;
+  var PIN_WIDTH = 65;
+  var PIN_HEIGHT = 85;
   var ADS_AMOUNT = 8;
   var LEFT_MOUSE_BUTTON = 0;
   var ENTER_KEY = 13;

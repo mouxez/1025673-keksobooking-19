@@ -12,12 +12,6 @@
     }
   };
 
-  // var activateElements = function (array, isDisabled) {
-  //   array.forEach(function (index) {
-  //     array[index].disabled = isDisabled;
-  //   });
-  // };
-
   activateElements(selectElements, true);
   activateElements(fieldsetElements, true);
 

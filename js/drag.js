@@ -2,10 +2,10 @@
 
 (function () {
   var limits = {
-    top: window.const.MIN_WINDOW_Y - window.const.PIN_HEIGHT,
+    top: window.const.MIN_WINDOW_Y,
     bottom: window.const.MAX_WINDOW_Y,
-    left: window.const.MIN_WINDOW_X - (window.const.PIN_WIDTH / 2),
-    right: window.const.MAX_WINDOW_X - (window.const.PIN_WIDTH / 2)
+    left: window.const.MIN_WINDOW_X - window.const.PIN_WIDTH / 2,
+    right: window.const.MAX_WINDOW_X - window.const.PIN_WIDTH / 2
   };
 
   window.map.mainButton.addEventListener('mousedown', function (evt) {
@@ -53,7 +53,7 @@
 
         window.map.mainButton.addEventListener('mousemove', function (click) {
           if (click.button === window.const.LEFT_MOUSE_BUTTON) {
-            window.pin.addressArea.value = window.pinLeft + ',' + window.pinTop;
+            window.pin.addressArea.value = Math.round(window.pinLeft + (window.const.PIN_WIDTH / 2)) + ',' + window.pinTop;
           }
         });
       };

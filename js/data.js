@@ -44,11 +44,13 @@
           item.remove();
         });
 
+        var curData = window.filter.onFilterChange(window.data.adsList);
+
         if (window.filter.onFilterChange(window.data.adsList).length > 5) {
           window.filter.onFilterChange(window.data.adsList).length = 5;
         }
-
-        window.pin.createPins(window.filter.onFilterChange(window.data.adsList));
+        window.data.adsList = curData;
+        window.pin.createPins(curData);
         mapPinNodeList = document.querySelectorAll('.map__pin:not(.map__pin--main)');
         getPinList();
         getFocus();

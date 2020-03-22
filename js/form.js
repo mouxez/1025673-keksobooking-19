@@ -42,7 +42,6 @@
     housingType.setCustomValidity('');
   };
 
-  // roomNumber.addEventListener('change', checkGuest);
   checkHousingType();
   housingType.addEventListener('change', checkHousingType);
 
