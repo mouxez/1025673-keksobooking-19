@@ -3,6 +3,7 @@
 (function () {
   var templateCard = document.querySelector('#card').content;
   var mapCard = templateCard.querySelector('.map__card').cloneNode(true);
+  var fragment = document.createDocumentFragment();
 
   var createFeature = function (feature) {
     var featureElement = document.createElement('li');
@@ -13,10 +14,10 @@
 
   var createFeatures = function (features) {
     features.forEach(function (feature) {
-      window.fragment.appendChild(createFeature(feature));
+      fragment.appendChild(createFeature(feature));
     });
 
-    return window.fragment;
+    return fragment;
   };
 
   var imgElement = function (img) {
@@ -26,7 +27,7 @@
       photo.src = img[j];
       photo.alt = 'Фотография ' + j;
       photo.style = 'width: 45px; height: 40px;';
-      window.fragment.appendChild(photo);
+      fragment.appendChild(photo);
     }
   };
 
@@ -41,7 +42,7 @@
     removeElement(mapCard.querySelector('.popup__features'));
 
     imgElement(window.data.adsList[index].offer.photos);
-    mapCard.querySelector('.popup__photos').appendChild(window.fragment);
+    mapCard.querySelector('.popup__photos').appendChild(fragment);
     mapCard.querySelector('.popup__title').textContent = window.data.adsList[index].offer.title;
     mapCard.querySelector('.popup__text--address').textContent = window.data.adsList[index].offer.address;
     mapCard.querySelector('.popup__text--price').textContent = window.data.adsList[index].offer.price + '₽/ночь';
@@ -63,20 +64,29 @@
     }
     return mapCard;
   };
+  var mapPinNodeList = document.querySelectorAll('.map__pin:not(.map__pin--main)');
 
   var map = document.querySelector('.map');
   var createCard = function (index) {
-    window.fragment.appendChild(renderCard(index));
-    map.appendChild(window.fragment);
+    fragment.appendChild(renderCard(index));
+    map.appendChild(fragment);
 
     var popupClose = document.querySelector('.popup__close');
     popupClose.addEventListener('click', function () {
       mapCard.remove();
+      mapPinNodeList = document.querySelectorAll('.map__pin:not(.map__pin--main)');
+      [].forEach.call(mapPinNodeList, function (item) {
+        item.classList.remove('map__pin--active', true);
+      });
     });
   };
   document.addEventListener('keydown', function (evt) {
     if (evt.keyCode === window.const.ESC_CODE) {
       mapCard.remove();
+      mapPinNodeList = document.querySelectorAll('.map__pin:not(.map__pin--main)');
+      [].forEach.call(mapPinNodeList, function (item) {
+        item.classList.remove('map__pin--active', true);
+      });
     }
   });
 

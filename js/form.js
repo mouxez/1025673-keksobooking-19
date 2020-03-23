@@ -7,6 +7,8 @@
   var resetButton = adForm.querySelector('.ad-form__reset');
   var housingType = document.querySelector('#type');
   var priceOfHousing = document.querySelector('#price');
+  var mapPinNodeList = document.querySelectorAll('.map__pin:not(.map__pin--main)');
+  var avatarPreview = adForm.querySelector('.ad-form-header__preview img');
 
   var checkGuest = function (evt) {
     var target = evt.target.value;
@@ -17,8 +19,11 @@
       option.selected = option.value === target || (option.value === '0' && target === '100');
     });
   };
-
   roomNumber.addEventListener('change', function (evt) {
+    checkGuest(evt);
+  });
+
+  capacity.addEventListener('mousemove', function (evt) {
     checkGuest(evt);
   });
 
@@ -81,14 +86,23 @@
   resetButton.addEventListener('mousedown', function (evt) {
     if (evt.button === window.const.LEFT_MOUSE_BUTTON) {
       adForm.reset();
+      window.data.mapFilters.reset();
+      var housePhotos = adForm.querySelectorAll('.ad-form__photo');
+      for (var i = 0; i < housePhotos.length - 1; i++) {
+        housePhotos[i].remove();
+      }
+      avatarPreview.src = window.const.AVATAR_SRC;
       window.map.activateElements(window.map.selectElements, true);
       window.map.activateElements(window.map.fieldsetElements, true);
       document.querySelector('.map').classList.add('map--faded');
       document.querySelector('.ad-form').classList.add('ad-form--disabled');
       window.card.mapCard.remove();
-      window.mapPinNodeList.forEach(function (item) {
+      mapPinNodeList = document.querySelectorAll('.map__pin:not(.map__pin--main)');
+      mapPinNodeList.forEach(function (item) {
         item.remove();
       });
+      document.querySelector('.map__pin--main').addEventListener('mousedown', window.data.drawPins);
     }
   });
+  window.adForm = adForm;
 })();

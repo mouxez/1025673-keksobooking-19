@@ -44,13 +44,10 @@
           item.remove();
         });
 
-        var curData = window.filter.onFilterChange(window.data.adsList);
+        var currentData = window.filter.onFilterChange(window.data.adsList);
 
-        if (window.filter.onFilterChange(window.data.adsList).length > 5) {
-          window.filter.onFilterChange(window.data.adsList).length = 5;
-        }
-        window.data.adsList = curData;
-        window.pin.createPins(curData);
+        window.data.adsList = currentData;
+        window.pin.createPins(currentData);
         mapPinNodeList = document.querySelectorAll('.map__pin:not(.map__pin--main)');
         getPinList();
         getFocus();
@@ -80,6 +77,8 @@
 
   window.data = {
     onSuccessLoad: onSuccessLoad,
-    adsList: adsList
+    adsList: adsList,
+    drawPins: drawPins,
+    mapFilters: mapFilters
   };
 })();

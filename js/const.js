@@ -15,7 +15,8 @@
   var LOAD_URL = 'https://js.dump.academy/keksobooking/data';
   var SAVE_URL = 'https://js.dump.academy/keksobooking';
   var DEBOUNCE_INTERVAL = 500;
-
+  var AVATAR_SRC = 'img/muffin-grey.svg';
+  var IMG_TYPES = ['jpeg', 'png', 'jpg'];
 
   window.const = {
     PIN_WIDTH: PIN_WIDTH,
@@ -31,6 +32,8 @@
     TIMEOUT_MS: TIMEOUT_MS,
     LOAD_URL: LOAD_URL,
     SAVE_URL: SAVE_URL,
-    DEBOUNCE_INTERVAL: DEBOUNCE_INTERVAL
+    DEBOUNCE_INTERVAL: DEBOUNCE_INTERVAL,
+    AVATAR_SRC: AVATAR_SRC,
+    IMG_TYPES: IMG_TYPES
   };
 })();

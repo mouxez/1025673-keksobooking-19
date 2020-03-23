@@ -2,6 +2,7 @@
 
 (function () {
   var template = document.querySelector('#pin').content.querySelector('.map__pin');
+  var fragment = document.createDocumentFragment();
 
   var renderDraftPin = function (pin) {
     var userPin = template.cloneNode(true);
@@ -17,9 +18,9 @@
 
   var createPins = function (pinsArray) {
     for (var j = 0; j < pinsArray.length; j++) {
-      window.fragment.appendChild(renderDraftPin(pinsArray[j]));
+      fragment.appendChild(renderDraftPin(pinsArray[j]));
     }
-    pin.appendChild(window.fragment);
+    pin.appendChild(fragment);
   };
 
   var pinX = window.map.mainButton.offsetLeft;

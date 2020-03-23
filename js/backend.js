@@ -9,9 +9,8 @@
     SERVER_ERROR: 500,
     SERVICE_UNAVAILABLE: 503
   };
-
   var main = document.querySelector('main');
-  window.fragment = document.createDocumentFragment();
+  var fragment = document.createDocumentFragment();
 
   var load = function (url, onLoad, onError) {
     var xhr = new XMLHttpRequest();
@@ -97,6 +96,7 @@
 
     document.addEventListener('mousedown', removeOnErrorDefaultMouse);
     document.addEventListener('keydown', removeOnErrorDefaultEsc);
+    document.querySelector('.map__pin--main').addEventListener('mousedown', window.data.drawPins);
   };
 
   var closeOnErrorDefault = function () {
@@ -114,17 +114,18 @@
     }
   };
 
+  var removeErrorEsc = function (evt) {
+    if (evt.keyCode === window.const.ESC_CODE) {
+      document.querySelector('div.error').remove();
+    }
+  };
+
   var removeSuccessMouse = function (evt) {
     if (evt.button === window.const.LEFT_MOUSE_BUTTON) {
       document.querySelector('div.success').remove();
     }
   };
 
-  var removeErrorEsc = function (evt) {
-    if (evt.keyCode === window.const.ESC_CODE) {
-      document.querySelector('div.error').remove();
-    }
-  };
 
   var removeSuccessEsc = function (evt) {
     if (evt.keyCode === window.const.ESC_CODE) {
@@ -134,11 +135,12 @@
 
   var onError = function () {
     var templateError = document.querySelector('#error').content.cloneNode(true);
-    window.fragment.appendChild(templateError);
-    main.appendChild(window.fragment);
+    fragment.appendChild(templateError);
+    main.appendChild(fragment);
 
     document.querySelector('div.error').addEventListener('mousedown', removeErrorMouse);
     document.addEventListener('keydown', removeErrorEsc);
+    document.querySelector('.map__pin--main').addEventListener('mousedown', window.data.drawPins);
   };
 
   var closeCard = function () {
@@ -152,8 +154,8 @@
 
   var onSuccess = function () {
     var templateSuccess = document.querySelector('#success').content.cloneNode(true);
-    window.fragment.appendChild(templateSuccess);
-    main.appendChild(window.fragment);
+    fragment.appendChild(templateSuccess);
+    main.appendChild(fragment);
 
     document.addEventListener('keydown', removeSuccessEsc);
     document.addEventListener('mousedown', removeSuccessMouse);
@@ -164,6 +166,7 @@
     document.addEventListener('keyup', function () {
       document.removeEventListener('keydown', removeSuccessEsc);
     });
+    document.querySelector('.map__pin--main').addEventListener('mousedown', window.data.drawPins);
   };
 
   window.backend = {

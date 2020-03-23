@@ -98,7 +98,7 @@
     });
 
     var filteredOffers = conditionerFilteredOffers;
-    return filteredOffers;
+    return filteredOffers.slice(0, 5);
   };
 
   window.filter = {
