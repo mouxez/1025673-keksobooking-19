@@ -12,8 +12,8 @@
   var MIN_WINDOW_X = 1;
   var MAX_WINDOW_X = 1200;
   var TIMEOUT_MS = 10000;
-  var LOAD_URL = 'https://js.dump.academy/keksobooking/data';
-  var SAVE_URL = 'https://js.dump.academy/keksobooking';
+  var LOAD_URL = 'https://javascript.pages.academy/keksobooking/data';
+  var SAVE_URL = 'https://javascript.pages.academy/keksobooking';
   var DEBOUNCE_INTERVAL = 500;
   var AVATAR_SRC = 'img/muffin-grey.svg';
   var IMG_TYPES = ['jpeg', 'png', 'jpg'];
